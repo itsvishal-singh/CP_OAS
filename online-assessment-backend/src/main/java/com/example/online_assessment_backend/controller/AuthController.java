@@ -10,6 +10,7 @@ import com.example.online_assessment_backend.dto.LoginRequest;
 import com.example.online_assessment_backend.dto.RegisterRequest;
 import com.example.online_assessment_backend.service.AuthService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/auth")
@@ -20,10 +21,11 @@ public class AuthController {
     private final AuthService authService;
 
     // REGISTER
-    @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request) {
-        return authService.register(request);
-    }
+   @PostMapping("/register")
+public String register(@Valid @RequestBody RegisterRequest request) {
+    return authService.register(request);
+}
+
 
     // LOGIN
     @PostMapping("/login")

@@ -29,9 +29,9 @@ public class ExamEntity {
     @Column(name = "title", nullable = false)
 private String title;
 
+private Integer duration;
+private Integer totalMarks; 
 
-
-    private int durationMinutes;
 
     @Column(nullable = false)
 private Boolean active;
