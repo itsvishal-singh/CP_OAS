@@ -15,24 +15,32 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-    http
-        .csrf(csrf -> csrf.disable())
-
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/auth/**").permitAll()
-            .requestMatchers("/api/exam/**").hasRole("ADMIN")
-            .requestMatchers("/api/student/**").hasRole("STUDENT")
-            .anyRequest().authenticated()
-        )
-
-        .httpBasic(Customizer.withDefaults());
-
-
-    return http.build();
-}
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    
+        http
+            .csrf(csrf -> csrf.disable())
+    
+            .authorizeHttpRequests(auth -> auth
+    
+                // Public APIs
+                .requestMatchers("/api/auth/**").permitAll()
+    
+                // Admin APIs
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+    
+                // Student APIs
+                .requestMatchers("/api/student/**").hasRole("STUDENT")
+    
+                // Others need login
+                .anyRequest().authenticated()
+            )
+    
+            // Enable Basic Login
+            .httpBasic(Customizer.withDefaults());
+    
+        return http.build();
+    }
+    
     
 
     @Bean
