@@ -12,7 +12,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 @Entity
 @Table(name = "exams")
 @Getter
@@ -26,15 +25,15 @@ public class ExamEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title", nullable = false)
-private String title;
-
-private Integer duration;
-private Integer totalMarks; 
-
-
     @Column(nullable = false)
-private Boolean active;
+    private String title;
 
+    @Column(name = "duration_minutes", nullable = false)
+    private Integer duration;
+
+    @Column(name = "total_marks", nullable = false)
+    private Integer totalMarks;
+
+    @Builder.Default
+    private Boolean active = true;
 }
-
