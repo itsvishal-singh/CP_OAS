@@ -29,13 +29,14 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
 
                 .requestMatchers("/api/auth/**").permitAll()
-
+            
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
-
-                .requestMatchers("/api/student/**").hasRole("STUDENT")
-
+            
+                .requestMatchers("/api/exams/**").hasAnyRole("ADMIN","STUDENT")
+            
                 .anyRequest().authenticated()
             )
+            
 
             .httpBasic(Customizer.withDefaults())
 

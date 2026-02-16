@@ -1,18 +1,7 @@
 package com.example.online_assessment_backend.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "questions")
@@ -27,10 +16,24 @@ public class QuestionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "exam_id", nullable = false)
-    private ExamEntity exam;
+    @Column(name = "exam_id")
+    private Long examId;
 
-    @Column(nullable = false, length = 1000)
-    private String questionText;
+    @Column(name = "question")
+    private String question;
+
+    @Column(name = "optiona")
+    private String optionA;
+
+    @Column(name = "optionb")
+    private String optionB;
+
+    @Column(name = "optionc")
+    private String optionC;
+
+    @Column(name = "optiond")
+    private String optionD;
+
+    @Column(name = "correct_answer")
+    private String correctAnswer;
 }
