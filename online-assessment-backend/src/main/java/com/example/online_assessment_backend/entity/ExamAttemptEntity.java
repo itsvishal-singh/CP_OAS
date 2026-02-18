@@ -43,6 +43,9 @@ public class ExamAttemptEntity {
 
     @Column(name = "end_time")
     private LocalDateTime endTime;
+    
+    @Column(name = "status", nullable = false)
+    private String status;
 
     @PrePersist
     public void prePersist() {
