@@ -8,12 +8,15 @@ import org.springframework.stereotype.Service;
 import com.example.online_assessment_backend.dto.CreateExamRequest;
 import com.example.online_assessment_backend.dto.ExamWithQuestionsResponse;
 import com.example.online_assessment_backend.dto.QuestionResponse;
+import com.example.online_assessment_backend.dto.StartExamResponse;
 import com.example.online_assessment_backend.entity.ExamAttemptEntity;
 import com.example.online_assessment_backend.entity.ExamEntity;
 import com.example.online_assessment_backend.entity.QuestionEntity;
 import com.example.online_assessment_backend.entity.UserEntity;
+import com.example.online_assessment_backend.repository.ExamAttemptRepository;
 import com.example.online_assessment_backend.repository.ExamRepository;
 import com.example.online_assessment_backend.repository.QuestionRepository;
+import com.example.online_assessment_backend.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +28,8 @@ public class ExamService {
 
         @Autowired
         private QuestionRepository questionRepository;
+        private final ExamAttemptRepository examAttemptRepository;
+        private final UserRepository userRepository;
 
         public String createExam(CreateExamRequest request) {
 
