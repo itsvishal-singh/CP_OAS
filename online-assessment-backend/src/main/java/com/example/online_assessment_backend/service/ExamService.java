@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ExamService {
-        @Autowired
+      
         private final ExamRepository examRepository;
 
         @Autowired

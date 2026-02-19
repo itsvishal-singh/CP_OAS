@@ -14,7 +14,6 @@ import com.example.online_assessment_backend.entity.ExamEntity;
 import com.example.online_assessment_backend.service.ExamService;
 
 import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequestMapping("/api/student/exams")
 @RequiredArgsConstructor
@@ -22,6 +21,13 @@ public class StudentExamController {
 
     private final ExamService examService;
 
+    // ✅ Get all exams
+    @GetMapping
+    public List<ExamEntity> getExamsForStudent() {
+        return examService.getAllExams();
+    }
+
+    // ✅ Start exam
     @PostMapping("/{examId}/start")
     public StartExamResponse startExam(
             @PathVariable Long examId,
@@ -31,9 +37,4 @@ public class StudentExamController {
 
         return examService.startExam(examId, username);
     }
-      @GetMapping("/exams")
-    public List<ExamEntity> getExamsForStudent() {
-        return examService.getAllExams();
-    }
-
 }
