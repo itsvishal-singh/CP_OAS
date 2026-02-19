@@ -1,12 +1,16 @@
 package com.example.online_assessment_backend.controller;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.online_assessment_backend.dto.StartExamResponse;
+import com.example.online_assessment_backend.entity.ExamEntity;
 import com.example.online_assessment_backend.service.ExamService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,4 +31,9 @@ public class StudentExamController {
 
         return examService.startExam(examId, username);
     }
+      @GetMapping("/exams")
+    public List<ExamEntity> getExamsForStudent() {
+        return examService.getAllExams();
+    }
+
 }

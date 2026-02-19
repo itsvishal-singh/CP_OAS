@@ -141,5 +141,9 @@ public class ExamService {
 
                 return "Exam submitted successfully. Score: " + totalScore;
         }
+        public List<ExamEntity> getAllExams() {
+                return examRepository.findAll();
+            }
+            
 
 }
