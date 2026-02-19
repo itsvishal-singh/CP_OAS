@@ -43,7 +43,7 @@ public class ExamAttemptEntity {
 
     @Column(name = "end_time")
     private LocalDateTime endTime;
-    
+
     @Column(name = "status", nullable = false)
     private String status;
 
@@ -51,4 +51,11 @@ public class ExamAttemptEntity {
     public void prePersist() {
         this.startTime = LocalDateTime.now();
     }
+
+    @Column(name = "score")
+    private Integer score;
+
+    @Column(name = "completed")
+    private Boolean completed = false;
+
 }

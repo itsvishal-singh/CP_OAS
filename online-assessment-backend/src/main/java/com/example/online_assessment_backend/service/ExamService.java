@@ -1,6 +1,8 @@
 package com.example.online_assessment_backend.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import com.example.online_assessment_backend.dto.CreateExamRequest;
 import com.example.online_assessment_backend.dto.ExamWithQuestionsResponse;
 import com.example.online_assessment_backend.dto.QuestionResponse;
 import com.example.online_assessment_backend.dto.StartExamResponse;
+import com.example.online_assessment_backend.dto.SubmitExamRequest;
 import com.example.online_assessment_backend.entity.ExamAttemptEntity;
 import com.example.online_assessment_backend.entity.ExamEntity;
 import com.example.online_assessment_backend.entity.QuestionEntity;
@@ -102,6 +105,41 @@ public class ExamService {
                                 .examId(exam.getId())
                                 .startedAt(attempt.getStartTime())
                                 .build();
+        }
+
+        public String submitExam(SubmitExamRequest request) {
+
+                ExamAttemptEntity attempt = examAttemptRepository
+                                .findById(request.getAttemptId())
+                                .orElseThrow(() -> new RuntimeException("Attempt not found"));
+
+                if (attempt.getCompleted()) {
+                        return "Exam already submitted";
+                }
+
+                int totalScore = 0;
+
+                for (Map.Entry<Long, String> entry : request.getAnswers().entrySet()) {
+
+                        Long questionId = entry.getKey();
+                        String selectedAnswer = entry.getValue();
+
+                        QuestionEntity question = questionRepository
+                                        .findById(questionId)
+                                        .orElseThrow(() -> new RuntimeException("Question not found"));
+
+                        if (question.getCorrectAnswer().equalsIgnoreCase(selectedAnswer)) {
+                                totalScore++;
+                        }
+                }
+
+                attempt.setScore(totalScore);
+                attempt.setCompleted(true);
+                attempt.setEndTime(LocalDateTime.now());
+
+                examAttemptRepository.save(attempt);
+
+                return "Exam submitted successfully. Score: " + totalScore;
         }
 
 }
