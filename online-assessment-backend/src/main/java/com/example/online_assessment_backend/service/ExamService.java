@@ -15,6 +15,8 @@ import com.example.online_assessment_backend.dto.SubmitExamRequest;
 import com.example.online_assessment_backend.entity.ExamAttemptEntity;
 import com.example.online_assessment_backend.entity.ExamEntity;
 import com.example.online_assessment_backend.entity.QuestionEntity;
+import com.example.online_assessment_backend.entity.ResultEntity;
+import com.example.online_assessment_backend.entity.StudentAnswerEntity;
 import com.example.online_assessment_backend.entity.UserEntity;
 import com.example.online_assessment_backend.repository.ExamAttemptRepository;
 import com.example.online_assessment_backend.repository.ExamRepository;
@@ -23,6 +25,7 @@ import com.example.online_assessment_backend.repository.ResultRepository;
 import com.example.online_assessment_backend.repository.StudentAnswerRepository;
 import com.example.online_assessment_backend.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -111,39 +114,63 @@ public class ExamService {
                                 .build();
         }
 
+        @Transactional
         public String submitExam(SubmitExamRequest request) {
 
-                ExamAttemptEntity attempt = examAttemptRepository
-                                .findById(request.getAttemptId())
+                ExamAttemptEntity attempt = examAttemptRepository.findById(request.getAttemptId())
                                 .orElseThrow(() -> new RuntimeException("Attempt not found"));
 
                 if (attempt.getCompleted()) {
-                        return "Exam already submitted";
+                        return "Already submitted";
                 }
 
-                int totalScore = 0;
+                int correct = 0;
+                int total = request.getAnswers().size();
 
                 for (Map.Entry<Long, String> entry : request.getAnswers().entrySet()) {
 
-                        Long questionId = entry.getKey();
-                        String selectedAnswer = entry.getValue();
+                        Long qId = entry.getKey();
+                        String selected = entry.getValue();
 
-                        QuestionEntity question = questionRepository
-                                        .findById(questionId)
+                        QuestionEntity question = questionRepository.findById(qId)
                                         .orElseThrow(() -> new RuntimeException("Question not found"));
 
-                        if (question.getCorrectAnswer().equalsIgnoreCase(selectedAnswer)) {
-                                totalScore++;
+                        // Save answer
+                        StudentAnswerEntity answer = StudentAnswerEntity.builder()
+                                        .attempt(attempt)
+                                        .question(question)
+                                        .selectedOption(selected)
+                                        .build();
+
+                        studentAnswerRepository.save(answer);
+
+                        // Check correctness
+                        if (question.getCorrectAnswer()
+                                        .equalsIgnoreCase(selected)) {
+                                correct++;
                         }
                 }
 
-                attempt.setScore(totalScore);
+                int score = correct; // 1 mark per question
+
+                // Save Result
+                ResultEntity result = ResultEntity.builder()
+                                .attempt(attempt)
+                                .correctAnswers(correct)
+                                .score(score)
+                                .totalQuestions(total)
+                                .build();
+
+                resultRepository.save(result);
+
+                // Update attempt
                 attempt.setCompleted(true);
                 attempt.setEndTime(LocalDateTime.now());
+                attempt.setScore(score);
 
                 examAttemptRepository.save(attempt);
 
-                return "Exam submitted successfully. Score: " + totalScore;
+                return "Exam submitted. Score: " + score + "/" + total;
         }
 
         public List<ExamEntity> getAllExams() {

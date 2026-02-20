@@ -6,14 +6,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.online_assessment_backend.dto.StartExamResponse;
+import com.example.online_assessment_backend.dto.SubmitExamRequest;
 import com.example.online_assessment_backend.entity.ExamEntity;
 import com.example.online_assessment_backend.service.ExamService;
 
 import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/api/student/exams")
 @RequiredArgsConstructor
@@ -36,5 +39,12 @@ public class StudentExamController {
         String username = authentication.getName();
 
         return examService.startExam(examId, username);
+    }
+
+    @PostMapping("/submit")
+    public String submitExam( 
+            @RequestBody SubmitExamRequest request) {
+
+        return examService.submitExam(request);
     }
 }
