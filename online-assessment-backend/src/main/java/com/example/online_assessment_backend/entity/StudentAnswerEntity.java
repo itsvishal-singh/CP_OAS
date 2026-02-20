@@ -1,10 +1,12 @@
 package com.example.online_assessment_backend.entity;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -27,11 +29,13 @@ public class StudentAnswerEntity {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "attempt_id")
     private ExamAttemptEntity attempt;
 
     @ManyToOne
+    @JoinColumn(name = "question_id")
     private QuestionEntity question;
 
-    @ManyToOne
-    private OptionEntity selectedOption;
+    @Column(name = "selected_option_id")
+    private String selectedOption;
 }
