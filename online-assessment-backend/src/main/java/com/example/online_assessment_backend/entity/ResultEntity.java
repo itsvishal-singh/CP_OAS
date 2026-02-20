@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class ResultEntity {
     private Long id;
 
     @OneToOne
+    @JoinColumn(name = "attempt_id")
     private ExamAttemptEntity attempt;
 
     private int totalQuestions;

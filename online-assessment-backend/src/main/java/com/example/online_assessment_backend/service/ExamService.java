@@ -19,6 +19,8 @@ import com.example.online_assessment_backend.entity.UserEntity;
 import com.example.online_assessment_backend.repository.ExamAttemptRepository;
 import com.example.online_assessment_backend.repository.ExamRepository;
 import com.example.online_assessment_backend.repository.QuestionRepository;
+import com.example.online_assessment_backend.repository.ResultRepository;
+import com.example.online_assessment_backend.repository.StudentAnswerRepository;
 import com.example.online_assessment_backend.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -26,8 +28,10 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ExamService {
-      
+
         private final ExamRepository examRepository;
+        private final StudentAnswerRepository studentAnswerRepository;
+        private final ResultRepository resultRepository;
 
         @Autowired
         private QuestionRepository questionRepository;
@@ -141,9 +145,9 @@ public class ExamService {
 
                 return "Exam submitted successfully. Score: " + totalScore;
         }
+
         public List<ExamEntity> getAllExams() {
                 return examRepository.findAll();
-            }
-            
+        }
 
 }
