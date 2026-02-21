@@ -3,6 +3,7 @@ package com.example.online_assessment_backend.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -35,7 +36,6 @@ public class ExamService {
         private final StudentAnswerRepository studentAnswerRepository;
         private final ResultRepository resultRepository;
 
- 
         private final QuestionRepository questionRepository;
         private final ExamAttemptRepository examAttemptRepository;
         private final UserRepository userRepository;
@@ -88,14 +88,22 @@ public class ExamService {
                                 .orElseThrow(() -> new RuntimeException("User not found"));
 
                 // 3️⃣ Check active attempt
-                examAttemptRepository
+                Optional<ExamAttemptEntity> activeAttempt;
+                activeAttempt = examAttemptRepository
                                 .findByExam_IdAndStudent_IdAndStatus(
                                                 exam.getId(),
                                                 student.getId(),
-                                                "STARTED")
-                                .ifPresent(a -> {
-                                        throw new RuntimeException("Exam already started");
-                                });
+                                                "STARTED");
+
+                if (activeAttempt.isPresent()) {
+                        ExamAttemptEntity attempt = activeAttempt.get();
+
+                        return StartExamResponse.builder()
+                                        .attemptId(attempt.getId())
+                                        .examId(exam.getId())
+                                        .startedAt(attempt.getStartTime())
+                                        .build();
+                }
 
                 // 4️⃣ Create new attempt
                 ExamAttemptEntity attempt = ExamAttemptEntity.builder()
