@@ -36,8 +36,8 @@ public class ExamService {
         private final StudentAnswerRepository studentAnswerRepository;
         private final ResultRepository resultRepository;
 
-        @Autowired
-        private QuestionRepository questionRepository;
+ 
+        private final QuestionRepository questionRepository;
         private final ExamAttemptRepository examAttemptRepository;
         private final UserRepository userRepository;
 

@@ -13,5 +13,6 @@ public interface ExamAttemptRepository
     findByExam_IdAndStudent_IdAndStatus(
             Long examId,
             Long studentId,
-            String status);
+            String status
+    );
 }
