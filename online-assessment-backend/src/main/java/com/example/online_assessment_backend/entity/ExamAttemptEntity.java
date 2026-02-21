@@ -55,6 +55,7 @@ public class ExamAttemptEntity {
     @Column(name = "score")
     private Integer score;
 
+    @Builder.Default
     @Column(name = "completed")
     private Boolean completed = false;
 

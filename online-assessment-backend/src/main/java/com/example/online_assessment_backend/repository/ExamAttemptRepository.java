@@ -10,7 +10,7 @@ public interface ExamAttemptRepository
         extends JpaRepository<ExamAttemptEntity, Long> {
 
     Optional<ExamAttemptEntity>
-    findByExamIdAndStudentIdAndStatus(
+    findByExam_IdAndStudent_IdAndStatus(
             Long examId,
             Long studentId,
             String status);

@@ -90,7 +90,7 @@ public class ExamService {
 
                 // 3️⃣ Check active attempt
                 examAttemptRepository
-                                .findByExamIdAndStudentIdAndStatus(
+                                .findByExam_IdAndStudent_IdAndStatus(
                                                 exam.getId(),
                                                 student.getId(),
                                                 "STARTED")
@@ -103,6 +103,7 @@ public class ExamService {
                                 .exam(exam)
                                 .student(student)
                                 .status("STARTED")
+                                .completed(false)
                                 .build();
 
                 examAttemptRepository.save(attempt);
