@@ -35,5 +35,6 @@ public class ExamEntity {
     private Integer totalMarks;
 
     @Builder.Default
+    @Column(nullable=false)
     private Boolean active = true;
 }

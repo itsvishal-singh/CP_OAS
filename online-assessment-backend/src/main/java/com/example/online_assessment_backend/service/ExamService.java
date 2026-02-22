@@ -84,6 +84,9 @@ public class ExamService {
                 // 1️⃣ Find exam
                 ExamEntity exam = examRepository.findById(examId)
                                 .orElseThrow(() -> new RuntimeException("Exam not found"));
+                if (!exam.getActive()) {
+                        throw new RuntimeException("Exam is closed by admin");
+                }
 
                 // 2️⃣ Find student
                 UserEntity student = userRepository.findByUsername(username)
@@ -205,24 +208,47 @@ public class ExamService {
                                                 .build())
                                 .toList();
         }
+
         public List<AdminResultResponse> getAllResults() {
 
-    List<ResultEntity> results = resultRepository.findAll();
+                List<ResultEntity> results = resultRepository.findAll();
 
-    return results.stream()
-            .map(r -> AdminResultResponse.builder()
-                    .studentName(r.getAttempt().getStudent().getUsername())
-                    .studentEmail(r.getAttempt().getStudent().getUsername())
+                return results.stream()
+                                .map(r -> AdminResultResponse.builder()
+                                                .studentName(r.getAttempt().getStudent().getUsername())
+                                                .studentEmail(r.getAttempt().getStudent().getUsername())
 
-                    .examId(r.getAttempt().getExam().getId())
-                    .examTitle(r.getAttempt().getExam().getTitle())
+                                                .examId(r.getAttempt().getExam().getId())
+                                                .examTitle(r.getAttempt().getExam().getTitle())
 
-                    .score(r.getScore())
-                    .totalQuestions(r.getTotalQuestions())
+                                                .score(r.getScore())
+                                                .totalQuestions(r.getTotalQuestions())
 
-                    .submittedAt(r.getAttempt().getEndTime())
-                    .build())
-            .toList();
-}
+                                                .submittedAt(r.getAttempt().getEndTime())
+                                                .build())
+                                .toList();
+        }
+
+        public String closeExam(Long examId) {
+
+                ExamEntity exam = examRepository.findById(examId)
+                                .orElseThrow(() -> new RuntimeException("Exam not found"));
+
+                exam.setActive(false);
+                examRepository.save(exam);
+
+                return "Exam closed successfully";
+        }
+
+        public String reopenExam(Long examId) {
+
+                ExamEntity exam = examRepository.findById(examId)
+                                .orElseThrow(() -> new RuntimeException("Exam not found"));
+
+                exam.setActive(true);
+                examRepository.save(exam);
+
+                return "Exam reopened successfully";
+        }
 
 }
