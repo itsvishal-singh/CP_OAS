@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.online_assessment_backend.dto.ResultResponse;
 import com.example.online_assessment_backend.dto.StartExamResponse;
 import com.example.online_assessment_backend.dto.SubmitExamRequest;
 import com.example.online_assessment_backend.entity.ExamEntity;
@@ -42,9 +43,15 @@ public class StudentExamController {
     }
 
     @PostMapping("/submit")
-    public String submitExam( 
+    public String submitExam(
             @RequestBody SubmitExamRequest request) {
 
         return examService.submitExam(request);
+    }
+
+    @GetMapping("/results")
+    public List<ResultResponse> getMyResults(Authentication auth) {
+
+        return examService.getMyResults(auth.getName());
     }
 }

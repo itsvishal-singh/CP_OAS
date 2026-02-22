@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.online_assessment_backend.dto.CreateExamRequest;
 import com.example.online_assessment_backend.dto.ExamWithQuestionsResponse;
 import com.example.online_assessment_backend.dto.QuestionResponse;
+import com.example.online_assessment_backend.dto.ResultResponse;
 import com.example.online_assessment_backend.dto.StartExamResponse;
 import com.example.online_assessment_backend.dto.SubmitExamRequest;
 import com.example.online_assessment_backend.entity.ExamAttemptEntity;
@@ -183,6 +184,25 @@ public class ExamService {
 
         public List<ExamEntity> getAllExams() {
                 return examRepository.findAll();
+        }
+
+        public List<ResultResponse> getMyResults(String username) {
+
+                UserEntity student = userRepository.findByUsername(username)
+                                .orElseThrow(() -> new RuntimeException("User not found"));
+
+                List<ResultEntity> results = resultRepository.findByAttempt_Student_Id(student.getId());
+
+                return results.stream()
+                                .map(r -> ResultResponse.builder()
+                                                .examId(r.getAttempt().getExam().getId())
+                                                .examTitle(r.getAttempt().getExam().getTitle())
+                                                .score(r.getScore())
+                                                .correctAnswers(r.getCorrectAnswers())
+                                                .totalQuestions(r.getTotalQuestions())
+                                                .submittedAt(r.getAttempt().getEndTime())
+                                                .build())
+                                .toList();
         }
 
 }
