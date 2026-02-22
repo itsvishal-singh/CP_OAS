@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.online_assessment_backend.dto.AdminResultResponse;
 import com.example.online_assessment_backend.dto.CreateExamRequest;
 import com.example.online_assessment_backend.dto.ExamWithQuestionsResponse;
 import com.example.online_assessment_backend.dto.QuestionResponse;
@@ -204,5 +205,24 @@ public class ExamService {
                                                 .build())
                                 .toList();
         }
+        public List<AdminResultResponse> getAllResults() {
+
+    List<ResultEntity> results = resultRepository.findAll();
+
+    return results.stream()
+            .map(r -> AdminResultResponse.builder()
+                    .studentName(r.getAttempt().getStudent().getUsername())
+                    .studentEmail(r.getAttempt().getStudent().getUsername())
+
+                    .examId(r.getAttempt().getExam().getId())
+                    .examTitle(r.getAttempt().getExam().getTitle())
+
+                    .score(r.getScore())
+                    .totalQuestions(r.getTotalQuestions())
+
+                    .submittedAt(r.getAttempt().getEndTime())
+                    .build())
+            .toList();
+}
 
 }

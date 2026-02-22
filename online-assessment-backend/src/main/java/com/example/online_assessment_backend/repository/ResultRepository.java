@@ -8,5 +8,8 @@ import com.example.online_assessment_backend.entity.ResultEntity;
 
 public interface ResultRepository extends JpaRepository<ResultEntity, Long> {
   List<ResultEntity> findByAttempt_Student_Id(Long studentId);
+  List<ResultEntity> findByAttempt_Exam_Id(Long examId);
+
+    List<ResultEntity> findAllByOrderByScoreDesc();
 }
 
