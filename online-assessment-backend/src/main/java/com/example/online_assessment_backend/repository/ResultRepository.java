@@ -24,5 +24,36 @@ public interface ResultRepository extends JpaRepository<ResultEntity, Long> {
   @Query("SELECT AVG(r.score) FROM ResultEntity r WHERE r.attempt.student.id = :studentId")
   Double getStudentAverage(@Param("studentId") Long studentId);
 
-    public long countByScoreGreaterThanEqual(int score);
+  public long countByScoreGreaterThanEqual(int score);
+
+  @Query("""
+          SELECT COUNT(r)
+          FROM ResultEntity r
+          WHERE r.attempt.exam.id = :examId
+      """)
+  long countByExam(@Param("examId") Long examId);
+
+  @Query("""
+          SELECT COUNT(r)
+          FROM ResultEntity r
+          WHERE r.attempt.exam.id = :examId
+          AND r.score >= :passMark
+      """)
+  long countPassed(
+      @Param("examId") Long examId,
+      @Param("passMark") int passMark);
+
+  @Query("""
+          SELECT AVG(r.score)
+          FROM ResultEntity r
+          WHERE r.attempt.exam.id = :examId
+      """)
+  Double getExamAverage(@Param("examId") Long examId);
+
+  @Query("""
+          SELECT MAX(r.score)
+          FROM ResultEntity r
+          WHERE r.attempt.exam.id = :examId
+      """)
+  Integer getExamMax(@Param("examId") Long examId);
 }

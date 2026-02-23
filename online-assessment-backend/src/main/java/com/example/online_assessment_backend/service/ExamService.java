@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.online_assessment_backend.dto.AdminDashboardResponse;
 import com.example.online_assessment_backend.dto.AdminResultResponse;
 import com.example.online_assessment_backend.dto.CreateExamRequest;
+import com.example.online_assessment_backend.dto.ExamReportResponse;
 import com.example.online_assessment_backend.dto.ExamSessionResponse;
 import com.example.online_assessment_backend.dto.ExamWithQuestionsResponse;
 import com.example.online_assessment_backend.dto.QuestionResponse;
@@ -336,4 +337,31 @@ public class ExamService {
 
                                 .build();
         }
+
+        public ExamReportResponse getExamReport(Long examId) {
+
+                ExamEntity exam = examRepository.findById(examId)
+                                .orElseThrow(() -> new RuntimeException("Exam not found"));
+
+                long total = resultRepository.countByExam(examId);
+
+                long passed = resultRepository.countPassed(examId, 40); // pass mark = 40
+
+                long failed = total - passed;
+
+                Double avg = resultRepository.getExamAverage(examId);
+
+                Integer max = resultRepository.getExamMax(examId);
+
+                return ExamReportResponse.builder()
+                                .examId(exam.getId())
+                                .examTitle(exam.getTitle())
+                                .totalAttempts(total)
+                                .passed(passed)
+                                .failed(failed)
+                                .averageScore(avg == null ? 0 : avg)
+                                .highestScore(max == null ? 0 : max)
+                                .build();
+        }
+
 }
