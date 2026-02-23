@@ -9,4 +9,6 @@ import com.example.online_assessment_backend.entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByUsername(String username);
+
+    long countByRole(String role);
 }

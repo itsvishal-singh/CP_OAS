@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.online_assessment_backend.dto.AdminDashboardResponse;
 import com.example.online_assessment_backend.dto.AdminResultResponse;
 import com.example.online_assessment_backend.dto.CreateExamRequest;
 import com.example.online_assessment_backend.dto.ExamSessionResponse;
@@ -14,6 +15,7 @@ import com.example.online_assessment_backend.dto.ExamWithQuestionsResponse;
 import com.example.online_assessment_backend.dto.QuestionResponse;
 import com.example.online_assessment_backend.dto.ResultResponse;
 import com.example.online_assessment_backend.dto.StartExamResponse;
+import com.example.online_assessment_backend.dto.StudentDashboardResponse;
 import com.example.online_assessment_backend.dto.SubmitExamRequest;
 import com.example.online_assessment_backend.entity.ExamAttemptEntity;
 import com.example.online_assessment_backend.entity.ExamEntity;
@@ -273,4 +275,65 @@ public class ExamService {
                                 .build();
         }
 
+        public StudentDashboardResponse getStudentDashboard(String username) {
+
+                UserEntity student = userRepository.findByUsername(username)
+                                .orElseThrow(() -> new RuntimeException("User not found"));
+
+                long totalExams = examRepository.count();
+
+                long attempted = examAttemptRepository.countByStudent_Id(student.getId());
+
+                long completed = examAttemptRepository
+                                .countByStudent_IdAndCompletedTrue(student.getId());
+
+                long pending = attempted - completed;
+
+                Double avg = resultRepository.getStudentAverage(student.getId());
+
+                Integer max = resultRepository.getMaxScore(student.getId());
+
+                String lastExam = examAttemptRepository
+                                .findTopByStudent_IdOrderByIdDesc(student.getId())
+                                .map(a -> a.getExam().getTitle())
+                                .orElse("None");
+
+                return StudentDashboardResponse.builder()
+                                .totalExams(totalExams)
+                                .attempted(attempted)
+                                .pending(pending)
+
+                                .averageScore(avg)
+                                .highestScore(max)
+
+                                .lastExam(lastExam)
+                                .build();
+        }
+
+        public AdminDashboardResponse getAdminDashboard() {
+
+                long students = userRepository.countByRole("STUDENT");
+
+                long exams = examRepository.count();
+
+                long attempts = examAttemptRepository.count();
+
+                Double avg = resultRepository.getAverageScore();
+
+                long passed = resultRepository.countByScoreGreaterThanEqual(40);
+
+                long total = resultRepository.count();
+
+                Double passRate = total == 0 ? 0 : (passed * 100.0 / total);
+
+                return AdminDashboardResponse.builder()
+                                .totalStudents(students)
+                                .totalExams(exams)
+                                .totalAttempts(attempts)
+
+                                .averageScore(avg)
+                                .passRate(passRate)
+
+                                .build();
+        }
 }
