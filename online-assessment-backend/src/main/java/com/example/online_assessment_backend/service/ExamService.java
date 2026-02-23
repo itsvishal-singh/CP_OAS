@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.online_assessment_backend.dto.AdminResultResponse;
 import com.example.online_assessment_backend.dto.CreateExamRequest;
+import com.example.online_assessment_backend.dto.ExamSessionResponse;
 import com.example.online_assessment_backend.dto.ExamWithQuestionsResponse;
 import com.example.online_assessment_backend.dto.QuestionResponse;
 import com.example.online_assessment_backend.dto.ResultResponse;
@@ -249,6 +250,27 @@ public class ExamService {
                 examRepository.save(exam);
 
                 return "Exam reopened successfully";
+        }
+
+        public ExamSessionResponse startExamSession(Long examId, String username) {
+
+                // Start / Resume attempt
+                StartExamResponse attempt = startExam(examId, username);
+
+                // Get exam + questions
+                ExamWithQuestionsResponse exam = getExamWithQuestions(examId);
+
+                return ExamSessionResponse.builder()
+                                .attemptId(attempt.getAttemptId())
+
+                                .examId(exam.getExamId())
+                                .title(exam.getTitle())
+                                .duration(exam.getDuration())
+
+                                .startTime(attempt.getStartedAt())
+
+                                .questions(exam.getQuestions())
+                                .build();
         }
 
 }
