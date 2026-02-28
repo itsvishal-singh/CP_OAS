@@ -1,5 +1,7 @@
 package com.example.online_assessment_backend.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,27 +28,25 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
-            .authorizeHttpRequests(auth -> auth
+                .csrf(csrf -> csrf.disable())
 
-                .requestMatchers("/api/auth/**").permitAll()
-            
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-            
-                .requestMatchers("/api/exams/**").hasAnyRole("ADMIN","STUDENT")
+                .authorizeHttpRequests(auth -> auth
 
-                .requestMatchers("/api/student/**").hasRole("STUDENT")
+                        .requestMatchers("/api/auth/**").permitAll()
 
-            
-                .anyRequest().authenticated()
-            )
-            
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
 
-            .httpBasic(Customizer.withDefaults())
+                        .requestMatchers("/api/exams/**").hasAnyRole("ADMIN", "STUDENT")
 
-            // 👇 Important line
-            .userDetailsService(userDetailsService);
+                        .requestMatchers("/api/student/**").hasRole("STUDENT")
+                        .anyRequest().authenticated())
+
+                .httpBasic(Customizer.withDefaults())
+
+                // 👇 Important line
+                .userDetailsService(userDetailsService);
 
         return http.build();
     }
@@ -59,4 +62,18 @@ public class SecurityConfig {
 
         return config.getAuthenticationManager();
     }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
 }
