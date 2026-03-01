@@ -7,6 +7,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import StudentExams from "./pages/StudentExams";
+import ExamPage from "./pages/ExamPage";
 
 function App() {
   return (
@@ -37,6 +38,14 @@ function App() {
           element={
             <ProtectedRoute allowedRole="ROLE_STUDENT">
               <StudentExams />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/exams/:examId"
+          element={
+            <ProtectedRoute allowedRole="ROLE_STUDENT">
+              <ExamPage />
             </ProtectedRoute>
           }
         />

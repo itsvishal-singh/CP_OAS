@@ -21,12 +21,12 @@ export default function StudentExams() {
 
   const startExam = async (examId) => {
     await api.post(`/student/exams/${examId}/start`);
-    navigate(`/student/exam/${examId}`);
+    navigate(`/student/exams/${examId}`);
   };
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">Available Exams</h1>
+      <h1 className="text-2xl font-bold text-blue-700 mb-6">Available Exams</h1>
 
       <div className="grid gap-4">
         {exams.map((exam) => (
@@ -36,8 +36,8 @@ export default function StudentExams() {
           >
             <div>
               <h2 className="text-lg font-semibold">{exam.title}</h2>
-              <p className="text-gray-600">
-                Duration: {exam.durationMinutes} minutes
+              <p className="text-green-600">
+                Duration: {`${exam.duration}`} minutes
               </p>
             </div>
 
