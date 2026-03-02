@@ -28,10 +28,16 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String fullName;
+
     @NotBlank(message = "Username is required")
     @Email(message = "Username must be a valid email address")
     @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false)
+    private String mobile;
 
     @Column(nullable = false)
     private String password;
