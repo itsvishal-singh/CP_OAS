@@ -31,7 +31,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-200 via-blue-100 to-purple-200">
-      <div className="bg-white shadow-2xl rounded-3xl p-10 w-[380px]">
+      <div className="bg-white shadow-2xl rounded-3xl p-10 w-[450px]">
 
         <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">
           Online Assessment
