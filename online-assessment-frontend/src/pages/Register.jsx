@@ -11,6 +11,8 @@ export default function Register() {
 
   const navigate = useNavigate();
 
+  const isMobileValid = mobile.length >= 10;
+
   const passwordsMatch =
     confirmPassword.length === 0 || password === confirmPassword;
 
@@ -23,7 +25,7 @@ export default function Register() {
       await axios.post("http://localhost:8085/api/auth/register", {
         username,
         password,
-        role: "STUDENT",   // Fixed role
+        role: "STUDENT", // Fixed role
         fullName,
         mobile,
       });
@@ -37,8 +39,7 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 via-blue-100 to-indigo-200">
-      <div className="bg-white shadow-2xl rounded-3xl p-10 w-[420px]">
-
+      <div className="bg-white shadow-2xl rounded-3xl p-10 w-[500px]">
         <h2 className="text-3xl font-bold text-center text-green-700 mb-2">
           Create Student Account
         </h2>
@@ -48,7 +49,6 @@ export default function Register() {
         </p>
 
         <form onSubmit={handleRegister} className="space-y-4">
-
           <input
             type="text"
             placeholder="Full Name"
@@ -69,13 +69,25 @@ export default function Register() {
 
           <input
             type="tel"
-            placeholder="Mobile Number"
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            placeholder="+91- Mobile Number"
+            pattern="[0-9]{10,}"
+            minLength={10}
+            maxLength={10}
+            className={`w-full border p-3 rounded-lg focus:outline-none focus:ring-2 ${ isMobileValid? "focus:ring-green-400" : "focus:ring-red-400 " }`}
             value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
+            onChange={(e) => {
+              // Allow only digits
+              const onlyDigits = e.target.value.replace(/\D/g, "");
+              setMobile(onlyDigits);              
+            }}
             required
-          />
-
+            />
+            {mobile.length > 0 && !isMobileValid && (
+                <p className="text-red-500 text-sm mt-1">
+                  Mobile number must be at least 10 digits
+                </p>
+                
+              )}
           <input
             type="password"
             placeholder="Password"
@@ -108,9 +120,9 @@ export default function Register() {
 
           <button
             type="submit"
-            disabled={!passwordsMatch}
+            disabled={!passwordsMatch || !isMobileValid}
             className={`w-full py-3 rounded-lg text-white transition duration-300 shadow-md ${
-              passwordsMatch
+              passwordsMatch && isMobileValid
                 ? "bg-green-600 hover:bg-green-700"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
@@ -128,7 +140,6 @@ export default function Register() {
             Login
           </span>
         </p>
-
       </div>
     </div>
   );
