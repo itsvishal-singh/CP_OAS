@@ -5,9 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 
 public class RegisterRequest {
 
+    private String fullName;
+
     @NotBlank
     @Email(message = "Username must be a valid email")
     private String username;
+
+    private String mobile;
 
     @NotBlank
     private String password;
@@ -38,5 +42,21 @@ public class RegisterRequest {
  
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }
