@@ -1,87 +1,61 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const navigate = useNavigate();
-  const [role, setRole] = useState(null);
 
-  useEffect(() => {
-    const updateRole = () => {
-      setRole(localStorage.getItem("role"));
-    };
-  
-    window.addEventListener("storage", updateRole);
-    updateRole();
-  
-    return () => window.removeEventListener("storage", updateRole);
-  }, []);
+  const role = localStorage.getItem("role");
+  const username = localStorage.getItem("username");
 
   const handleLogout = () => {
     localStorage.clear();
-    navigate("/login");
+    navigate("/");
+    window.location.reload(); // refresh navbar state
   };
 
   return (
-    <nav className="bg-white shadow-md px-8 py-4 flex justify-between items-center">
-
-      {/* Logo */}
-      <Link to="/" className="text-xl font-bold text-indigo-700">
-        Online Assessment
+    <nav className="bg-gradient-to-br from-indigo-900 to-purple-900 text-white shadow-md px-10 py-4 flex justify-between items-center sticky top-0 z-50">
+      {/* Dynamic Home Title */}
+      <Link
+        to={
+          role === "ROLE_ADMIN"
+            ? "/admin"
+            : role === "ROLE_STUDENT"
+            ? "/student"
+            : "/"
+        }
+        className="text-xl font-bold text-white hover:underline"
+      >
+        {role === "ROLE_ADMIN"
+          ? "Admin Home"
+          : role === "ROLE_STUDENT"
+          ? `Welcome ${username}`
+          : "Assessment Home"}
       </Link>
-
-      {/* Right Side */}
-      <div className="flex items-center gap-4">
-
-        {!role && (
-          <>
-            <Link to="/login">
-              <button className="px-4 py-2 text-indigo-600 hover:underline">
-                Login
-              </button>
-            </Link>
-
-            <Link to="/register">
-              <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
-                Register
-              </button>
-            </Link>
-          </>
+      <div className="flex gap-6 items-center">
+        {role && (
+          <Link to={role === "ROLE_ADMIN" ? "/admin" : "/student"}>
+            Dashboard
+          </Link>
         )}
 
-        {role === "ROLE_ADMIN" && (
+        {role ? (
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600 transition"
+          >
+            Logout
+          </button>
+        ) : (
           <>
-            <Link to="/admin">
-              <button className="px-4 py-2 text-indigo-600 hover:underline">
-                Dashboard
-              </button>
-            </Link>
-
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
+            <Link to="/login">Login</Link>
+            <Link
+              to="/register"
+              className="bg-white text-indigo-700 px-4 py-2 rounded-lg"
             >
-              Logout
-            </button>
-          </>
-        )}
-
-        {role === "ROLE_STUDENT" && (
-          <>
-            <Link to="/student">
-              <button className="px-4 py-2 text-indigo-600 hover:underline">
-                Dashboard
-              </button>
+              Register
             </Link>
-
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition"
-            >
-              Logout
-            </button>
           </>
         )}
-
       </div>
     </nav>
   );
