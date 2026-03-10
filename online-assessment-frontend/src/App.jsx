@@ -9,13 +9,13 @@ import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import StudentExams from "./pages/StudentExams";
 import ExamPage from "./pages/ExamPage";
+import ManageExams from "./pages/ManageExams";
 
 function App() {
   return (
     <BrowserRouter>
-    <Navbar />
+      <Navbar />
       <Routes>
-        
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -49,6 +49,14 @@ function App() {
           element={
             <ProtectedRoute allowedRole="ROLE_STUDENT">
               <ExamPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/exams"
+          element={
+            <ProtectedRoute role="ROLE_ADMIN">
+              <ManageExams />
             </ProtectedRoute>
           }
         />
