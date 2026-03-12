@@ -38,9 +38,9 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 via-blue-100 to-indigo-200">
+    <div className="h-[calc(100vh-83px)] flex items-center justify-center bg-gradient-to-br from-indigo-500 via-blue-300 to-purple-600">
       <div className="bg-white shadow-2xl rounded-3xl p-10 w-[500px]">
-        <h2 className="text-3xl font-bold text-center text-green-700 mb-2">
+        <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">
           Create Student Account
         </h2>
 
@@ -52,7 +52,7 @@ export default function Register() {
           <input
             type="text"
             placeholder="Full Name"
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
@@ -61,7 +61,7 @@ export default function Register() {
           <input
             type="email"
             placeholder="Email"
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -73,25 +73,26 @@ export default function Register() {
             pattern="[0-9]{10,}"
             minLength={10}
             maxLength={10}
-            className={`w-full border p-3 rounded-lg focus:outline-none focus:ring-2 ${ isMobileValid? "focus:ring-green-400" : "focus:ring-red-400 " }`}
+            className={`w-full border p-3 rounded-lg focus:outline-none focus:ring-2 ${
+              isMobileValid ? "focus:ring-indigo-400" : "focus:ring-red-400 "
+            }`}
             value={mobile}
             onChange={(e) => {
               // Allow only digits
               const onlyDigits = e.target.value.replace(/\D/g, "");
-              setMobile(onlyDigits);              
+              setMobile(onlyDigits);
             }}
             required
-            />
-            {mobile.length > 0 && !isMobileValid && (
-                <p className="text-red-500 text-sm mt-1">
-                  Mobile number must be at least 10 digits
-                </p>
-                
-              )}
+          />
+          {mobile.length > 0 && !isMobileValid && (
+            <p className="text-red-500 text-sm mt-1">
+              Mobile number must be 10 digits
+            </p>
+          )}
           <input
             type="password"
             placeholder="Password"
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -103,7 +104,7 @@ export default function Register() {
               placeholder="Confirm Password"
               className={`w-full border p-3 rounded-lg focus:outline-none focus:ring-2 ${
                 passwordsMatch
-                  ? "focus:ring-green-400"
+                  ? "focus:ring-indigo-400"
                   : "focus:ring-red-400 border-red-400"
               }`}
               value={confirmPassword}
@@ -123,7 +124,7 @@ export default function Register() {
             disabled={!passwordsMatch || !isMobileValid}
             className={`w-full py-3 rounded-lg text-white transition duration-300 shadow-md ${
               passwordsMatch && isMobileValid
-                ? "bg-green-600 hover:bg-green-700"
+                ? "bg-indigo-600 hover:bg-indigo-800"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
@@ -135,7 +136,7 @@ export default function Register() {
           Already have an account?{" "}
           <span
             onClick={() => navigate("/login")}
-            className="text-green-600 cursor-pointer hover:underline"
+            className="text-indigo-600 cursor-pointer hover:underline"
           >
             Login
           </span>
