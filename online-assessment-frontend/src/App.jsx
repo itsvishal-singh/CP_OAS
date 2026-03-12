@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
@@ -10,10 +12,18 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import StudentExams from "./pages/StudentExams";
 import ExamPage from "./pages/ExamPage";
 import ManageExams from "./pages/ManageExams";
+import ManageQuestions from "./pages/ManageQuestions";
+import ManageStudents from "./pages/ManageUsers";
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        theme="colored"
+        limit={2}
+      />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -60,6 +70,15 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/admin/questions"
+          element={
+            <ProtectedRoute role="ROLE_ADMIN">
+              <ManageQuestions />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/admin/students" element={<ManageStudents />} />
       </Routes>
     </BrowserRouter>
   );
