@@ -17,6 +17,7 @@ export default function Login() {
 
       const res = await api.get("/auth/me");
       localStorage.setItem("role", res.data.role);
+      localStorage.setItem("username", res.data.username);
 
       if (res.data.role === "ROLE_ADMIN") {
         navigate("/admin");
@@ -30,11 +31,11 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-200 via-blue-100 to-purple-200">
+    <div className="h-[calc(100vh-83px)] flex items-center justify-center bg-gradient-to-br from-indigo-500 via-blue-300 to-purple-600">
       <div className="bg-white shadow-2xl rounded-3xl p-10 w-[450px]">
 
         <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">
-          Online Assessment
+          Your Assessment
         </h2>
 
         <p className="text-center text-gray-500 mb-6">
@@ -82,7 +83,7 @@ export default function Login() {
           Don’t have an account?{" "}
           <span
             onClick={() => navigate("/register")}
-            className="text-indigo-600 cursor-pointer hover:underline"
+            className="text-green-600 cursor-pointer hover:underline"
           >
             Register
           </span>
