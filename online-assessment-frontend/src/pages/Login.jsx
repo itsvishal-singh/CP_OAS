@@ -42,12 +42,12 @@ export default function Login() {
           Sign in to continue
         </p>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleLogin} className="space-y-4 font-semibold">
 
           <input
             type="text"
             placeholder="Email"
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+            className="w-full border p-3 rounded-xl text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -56,7 +56,7 @@ export default function Login() {
           <input
             type="password"
             placeholder="Password"
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+            className="w-full border p-3 rounded-xl text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -73,7 +73,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full bg-indigo-600 text-white py-3 rounded-lg hover:bg-indigo-700 transition duration-300 shadow-md"
+            className="w-full bg-indigo-600 text-white py-3 rounded-xl hover:bg-green-600 transition duration-300 shadow-md"
           >
             Login
           </button>
