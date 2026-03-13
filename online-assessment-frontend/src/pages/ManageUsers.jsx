@@ -114,12 +114,12 @@ export default function ManageUsers() {
 
       {/* Tabs */}
 
-      <div className="flex gap-4 mb-6">
+      <div className="flex gap-4 font-semibold text-indigo-600 mb-6">
         <button
           onClick={() => setTab("add")}
           className={`px-4 py-2 rounded-xl ${
             tab === "add"
-              ? "bg-white text-indigo-700"
+              ? "bg-white "
               : "bg-green-600 text-white"
           }`}
         >
@@ -130,7 +130,7 @@ export default function ManageUsers() {
           onClick={() => setTab("students")}
           className={`px-4 py-2 rounded-xl ${
             tab === "students"
-              ? "bg-white text-indigo-700"
+              ? "bg-white "
               : "bg-green-600 text-white"
           }`}
         >
@@ -141,7 +141,7 @@ export default function ManageUsers() {
           onClick={() => setTab("admins")}
           className={`px-4 py-2 rounded-xl ${
             tab === "admins"
-              ? "bg-white text-indigo-700"
+              ? "bg-white"
               : "bg-green-600 text-white"
           }`}
         >
@@ -152,12 +152,12 @@ export default function ManageUsers() {
       {/* ADD USER */}
 
       {tab === "add" && (
-        <div className="bg-white p-6 rounded-3xl shadow-2xl w-[500px] p-8">
+        <div className="bg-white p-6 rounded-3xl font-semibold shadow-2xl w-[500px] p-8">
           <form onSubmit={createUser} className="space-y-4">
             <input
               type="text"
               placeholder="Full Name"
-              className="w-full border p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border p-3 rounded-xl text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               required
@@ -166,7 +166,7 @@ export default function ManageUsers() {
             <input
               type="email"
               placeholder="Email"
-              className="w-full border p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border p-3 rounded-xl text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -179,7 +179,7 @@ export default function ManageUsers() {
               minLength={10}
               maxLength={10}
               className={`w-full border p-3 rounded-xl focus:outline-none focus:ring-2 ${
-                isMobileValid ? "focus:ring-indigo-400" : "focus:ring-red-400 "
+                isMobileValid ? "focus:ring-indigo-400 text-indigo-600" : "focus:ring-red-400 text-red-500"
               }`}
               value={mobile}
               onChange={(e) => {
@@ -193,14 +193,14 @@ export default function ManageUsers() {
             <input
               type="text"
               placeholder="Password"
-              className="w-full border p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border p-3 rounded-xl text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
 
             <select
-              className="w-full border p-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-400"
+              className="w-full border p-3 rounded-xl text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
