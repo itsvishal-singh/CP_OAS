@@ -45,7 +45,7 @@ export default function Register() {
         </h2>
 
         <p className="text-center text-gray-500 mb-6">
-          Join the assessment platform
+          Join the Assessment Platform
         </p>
 
         <form onSubmit={handleRegister} className="space-y-4">
