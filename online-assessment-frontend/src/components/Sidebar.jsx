@@ -23,7 +23,7 @@ export default function Sidebar() {
           to="/admin/students"
           className="px-4 py-2 rounded hover:bg-indigo-700 transition"
         >
-          Students
+          Manage Users
         </Link>
         <Link
           to="/admin/exams"
@@ -36,7 +36,7 @@ export default function Sidebar() {
           to="/admin/questions"
           className="px-4 py-2 rounded hover:bg-indigo-700 transition"
         >
-          Questions
+          Manage Questions
         </Link>
 
         <Link
