@@ -39,7 +39,7 @@ export default function Register() {
 
   return (
     <div className="h-[calc(100vh-83px)] flex items-center justify-center bg-gradient-to-br from-indigo-500 via-blue-300 to-purple-600">
-      <div className="bg-white shadow-2xl rounded-3xl p-10 w-[500px]">
+      <div className="bg-white shadow-2xl rounded-3xl p-8 w-[500px]">
         <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">
           Create Student Account
         </h2>
@@ -48,11 +48,11 @@ export default function Register() {
           Join the Assessment Platform
         </p>
 
-        <form onSubmit={handleRegister} className="space-y-4">
+        <form onSubmit={handleRegister} className="space-y-4 font-semibold">
           <input
             type="text"
             placeholder="Full Name"
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="w-full border p-3 rounded-xl text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             required
@@ -61,7 +61,7 @@ export default function Register() {
           <input
             type="email"
             placeholder="Email"
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="w-full border p-3 rounded-xl text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -73,8 +73,8 @@ export default function Register() {
             pattern="[0-9]{10,}"
             minLength={10}
             maxLength={10}
-            className={`w-full border p-3 rounded-lg focus:outline-none focus:ring-2 ${
-              isMobileValid ? "focus:ring-indigo-400" : "focus:ring-red-400 "
+            className={`w-full border p-3 rounded-xl text-indigo-600 focus:outline-none focus:ring-2 ${
+              isMobileValid ? "focus:ring-indigo-400" : "focus:ring-red-400 text-red-600"
             }`}
             value={mobile}
             onChange={(e) => {
@@ -92,7 +92,7 @@ export default function Register() {
           <input
             type="password"
             placeholder="Password"
-            className="w-full border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="w-full border p-3 rounded-xl text-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
@@ -102,10 +102,10 @@ export default function Register() {
             <input
               type="password"
               placeholder="Confirm Password"
-              className={`w-full border p-3 rounded-lg focus:outline-none focus:ring-2 ${
+              className={`w-full border p-3 rounded-xl text-indigo-600 focus:outline-none focus:ring-2 ${
                 passwordsMatch
                   ? "focus:ring-indigo-400"
-                  : "focus:ring-red-400 border-red-400"
+                  : "focus:ring-red-400 border-red-400 text-red-600"
               }`}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
