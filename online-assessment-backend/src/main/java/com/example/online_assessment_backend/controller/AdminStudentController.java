@@ -74,4 +74,5 @@ public class AdminStudentController {
 
     return "Student created successfully";
   }
+
 }
