@@ -62,6 +62,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/exams/:examId" element={<ExamPage/>}/> 
         <Route
           path="/admin/exams"
           element={
