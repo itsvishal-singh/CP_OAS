@@ -2,14 +2,16 @@ package com.example.online_assessment_backend.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
+@Data
 public class CreateExamRequest {
 
     @NotBlank
     private String title;
 
     @NotNull
-    private Integer duration;
+    private Integer durationMinutes;
 
     @NotNull
     private Integer totalMarks;
@@ -24,12 +26,12 @@ public class CreateExamRequest {
         this.title = title;
     }
 
-    public Integer getDuration() {
-        return duration;
+    public Integer getDurationMinutes() {
+        return durationMinutes;
     }
 
-    public void setDuration(Integer duration) {
-        this.duration = duration;
+    public void setDuration(Integer durationMinutes) {
+        this.durationMinutes = durationMinutes;
     }
 
     public Integer getTotalMarks() {
