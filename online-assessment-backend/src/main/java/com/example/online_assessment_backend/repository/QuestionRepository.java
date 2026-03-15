@@ -7,4 +7,5 @@ import com.example.online_assessment_backend.entity.QuestionEntity;
 
 public interface QuestionRepository extends JpaRepository<QuestionEntity, Long> {
     List<QuestionEntity> findByExamId(Long examId);
+    long countByExamId(Long examId);
 }

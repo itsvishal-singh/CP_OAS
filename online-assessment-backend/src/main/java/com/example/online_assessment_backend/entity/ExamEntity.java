@@ -9,11 +9,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Entity
 @Table(name = "exams")
+@Data
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,12 +31,12 @@ public class ExamEntity {
     private String title;
 
     @Column(name = "duration_minutes", nullable = false)
-    private Integer duration;
+    private Integer durationMinutes;
 
     @Column(name = "total_marks", nullable = false)
     private Integer totalMarks;
 
-    @Builder.Default
-    @Column(nullable=false)
-    private Boolean active = true;
+    
+    private Boolean active;
+
 }
