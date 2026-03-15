@@ -3,7 +3,6 @@ package com.example.online_assessment_backend.service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -49,13 +48,45 @@ public class ExamService {
         public String createExam(CreateExamRequest request) {
 
                 ExamEntity exam = new ExamEntity();
+
                 exam.setTitle(request.getTitle());
-                exam.setDuration(request.getDuration());
+                exam.setDurationMinutes(request.getDurationMinutes());
                 exam.setTotalMarks(request.getTotalMarks());
+                exam.setActive(true);
 
                 examRepository.save(exam);
 
                 return "Exam created successfully";
+        }
+
+        public void deleteExam(Long id) {
+                examRepository.deleteById(id);
+        }
+
+        public String updateExam(Long id, CreateExamRequest request) {
+
+                ExamEntity exam = examRepository.findById(id)
+                                .orElseThrow(() -> new RuntimeException("Exam not found"));
+
+                exam.setTitle(request.getTitle());
+                exam.setDurationMinutes(request.getDurationMinutes());
+                exam.setTotalMarks(request.getTotalMarks());
+
+                examRepository.save(exam);
+
+                return "Exam updated successfully";
+        }
+
+        public String toggleExamStatus(Long id) {
+
+                ExamEntity exam = examRepository.findById(id)
+                                .orElseThrow(() -> new RuntimeException("Exam not found"));
+
+                exam.setActive(!exam.getActive());
+
+                examRepository.save(exam);
+
+                return exam.getActive() ? "Exam activated" : "Exam closed";
         }
 
         public ExamWithQuestionsResponse getExamWithQuestions(Long examId) {
@@ -72,13 +103,15 @@ public class ExamService {
                                                 q.getOptionA(),
                                                 q.getOptionB(),
                                                 q.getOptionC(),
-                                                q.getOptionD()))
+                                                q.getOptionD(),
+                                                q.getCorrectAnswer(),
+                                                exam.getTitle()))
                                 .toList();
 
                 return new ExamWithQuestionsResponse(
                                 exam.getId(),
                                 exam.getTitle(),
-                                exam.getDuration(),
+                                exam.getDurationMinutes(),
                                 exam.getTotalMarks(),
                                 questionList);
         }
@@ -97,33 +130,29 @@ public class ExamService {
                                 .orElseThrow(() -> new RuntimeException("User not found"));
 
                 // 3️⃣ Check active attempt
-                Optional<ExamAttemptEntity> activeAttempt;
-                activeAttempt = examAttemptRepository
-                                .findByExam_IdAndStudent_IdAndStatus(
-                                                exam.getId(),
-                                                student.getId(),
-                                                "STARTED");
+                List<ExamAttemptEntity> activeAttempts = examAttemptRepository.findByExam_IdAndStudent_IdAndStatus(
+                                exam.getId(),
+                                student.getId(),
+                                "STARTED");
 
-                if (activeAttempt.isPresent()) {
-                        ExamAttemptEntity attempt = activeAttempt.get();
+                ExamAttemptEntity attempt;
 
-                        return StartExamResponse.builder()
-                                        .attemptId(attempt.getId())
-                                        .examId(exam.getId())
-                                        .startedAt(attempt.getStartTime())
+                if (!activeAttempts.isEmpty()) {
+
+                        attempt = activeAttempts.get(0);
+
+                } else {
+
+                        attempt = ExamAttemptEntity.builder()
+                                        .exam(exam)
+                                        .student(student)
+                                        .status("STARTED")
+                                        .completed(false)
+                                        .startTime(LocalDateTime.now())
                                         .build();
+
+                        examAttemptRepository.save(attempt);
                 }
-
-                // 4️⃣ Create new attempt
-                ExamAttemptEntity attempt = ExamAttemptEntity.builder()
-                                .exam(exam)
-                                .student(student)
-                                .status("STARTED")
-                                .completed(false)
-                                .build();
-
-                examAttemptRepository.save(attempt);
-
                 return StartExamResponse.builder()
                                 .attemptId(attempt.getId())
                                 .examId(exam.getId())
@@ -144,20 +173,24 @@ public class ExamService {
                 int correct = 0;
                 int total = request.getAnswers().size();
 
-                for (Map.Entry<Long, String> entry : request.getAnswers().entrySet()) {
+                for (Map.Entry<String, String> entry : request.getAnswers().entrySet()) {
 
-                        Long qId = entry.getKey();
+                        Long qId = Long.valueOf(entry.getKey());
                         String selected = entry.getValue();
 
                         QuestionEntity question = questionRepository.findById(qId)
                                         .orElseThrow(() -> new RuntimeException("Question not found"));
 
                         // Save answer
-                        StudentAnswerEntity answer = StudentAnswerEntity.builder()
-                                        .attempt(attempt)
-                                        .question(question)
-                                        .selectedOption(selected)
-                                        .build();
+                        StudentAnswerEntity answer = studentAnswerRepository
+                                        .findByAttempt_IdAndQuestion_Id(attempt.getId(), qId)
+                                        .orElse(
+                                                        StudentAnswerEntity.builder()
+                                                                        .attempt(attempt)
+                                                                        .question(question)
+                                                                        .build());
+
+                        answer.setSelectedOption(selected);
 
                         studentAnswerRepository.save(answer);
 
@@ -176,6 +209,7 @@ public class ExamService {
                                 .correctAnswers(correct)
                                 .score(score)
                                 .totalQuestions(total)
+                                .submittedAt(LocalDateTime.now())
                                 .build();
 
                 resultRepository.save(result);
