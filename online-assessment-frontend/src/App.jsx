@@ -14,6 +14,7 @@ import ExamPage from "./pages/ExamPage";
 import ManageExams from "./pages/ManageExams";
 import ManageQuestions from "./pages/ManageQuestions";
 import ManageStudents from "./pages/ManageUsers";
+import ResultPage from "./pages/ResultPage";
 
 function App() {
   return (
@@ -62,7 +63,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/exams/:examId" element={<ExamPage/>}/> 
+        <Route path="/exams/:examId" element={<ExamPage />} />
         <Route
           path="/admin/exams"
           element={
@@ -79,7 +80,22 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/admin/students" element={<ManageStudents />} />
+        <Route
+          path="/admin/students"
+          element={
+            <ProtectedRoute role="ROLE_ADMIN">
+              <ManageStudents />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/results/:attemptId"
+          element={
+            <ProtectedRoute allowedRole="ROLE_STUDENT">
+              <ResultPage />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
