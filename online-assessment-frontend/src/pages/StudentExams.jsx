@@ -20,7 +20,7 @@ export default function StudentExams() {
   };
 
   const startExam = async (examId) => {
-    await api.post(`/student/exams/${examId}/start`);
+    // await api.post(`/student/exams/${examId}/start`);
     navigate(`/student/exams/${examId}`);
   };
 
@@ -37,7 +37,7 @@ export default function StudentExams() {
             <div>
               <h2 className="text-lg font-semibold">{exam.title}</h2>
               <p className="text-green-600">
-                Duration: {`${exam.duration}`} minutes
+                Duration: {`${exam.durationMinutes}`} minutes
               </p>
             </div>
 
