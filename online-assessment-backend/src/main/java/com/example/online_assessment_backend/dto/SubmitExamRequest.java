@@ -10,7 +10,5 @@ import lombok.Setter;
 public class SubmitExamRequest {
 
     private Long attemptId;
-
-    // questionId -> selectedOption
-    private Map<Long, String> answers;
+    private Map<String, String> answers;
 }
