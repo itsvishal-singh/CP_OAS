@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 export default function StudentDashboard() {
   const [stats, setStats] = useState(null);
   const [exams, setExams] = useState([]);
+  const COLORS = ["#6366f1", "#22c55e"];
+  const chartData = [
+    { name: "Attempted", value: stats?.attempted || 0 },
+    { name: "Pending", value: stats?.pending || 0 },
+  ];
 
   const navigate = useNavigate();
 
@@ -52,6 +58,21 @@ export default function StudentDashboard() {
             {stats.averageScore ? stats.averageScore.toFixed(1) : "0.0"}%
           </p>
         </div>
+      </div>
+
+      <div className="bg-white p-6 rounded-xl shadow mb-5">
+        <h2 className="text-lg font-bold mb-4">Exam Progress</h2>
+
+        <PieChart width={300} height={250}>
+          <Pie stats={chartData} dataKey="value" outerRadius={80} label>
+            {chartData.map((entry, index) => (
+              <Cell key={index} fill={COLORS[index]} />
+            ))}
+          </Pie>
+
+          <Tooltip />
+          <Legend />
+        </PieChart>
       </div>
 
       {/* Exams */}
