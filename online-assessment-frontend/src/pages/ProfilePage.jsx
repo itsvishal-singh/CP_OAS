@@ -21,10 +21,10 @@ export default function ProfilePage() {
   const updateProfile = async () => {
     await api.put("/student/profile", profile);
     setEdit(false);
-    localStorage.setItem("fullName", profile.full_name);
+    localStorage.setItem("fullName", profile.fullName);
   };
 
-  // if (!profile) return <p>Loading...</p>;
+  if (!profile) return <p>Loading...</p>;
 
   return (
     <div className="p-10">
@@ -34,7 +34,7 @@ export default function ProfilePage() {
         <label>Name</label>
         <input
           name="fullName"
-          value={profile.full_name}
+          value={profile.fullName}
           onChange={handleChange}
           disabled={!edit}
           className="w-full border p-2 mb-3"

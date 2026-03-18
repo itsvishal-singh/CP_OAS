@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 public class StudentDashboardController {
 
   private final ExamService examService;
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
 
   @GetMapping("/dashboard")
   public StudentDashboardResponse dashboard(
@@ -48,4 +48,5 @@ public class StudentDashboardController {
 
     return userRepository.save(user);
   }
+  
 }
