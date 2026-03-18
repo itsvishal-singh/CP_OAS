@@ -15,6 +15,7 @@ import ManageExams from "./pages/ManageExams";
 import ManageQuestions from "./pages/ManageQuestions";
 import ManageStudents from "./pages/ManageUsers";
 import ResultPage from "./pages/ResultPage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -93,6 +94,14 @@ function App() {
           element={
             <ProtectedRoute allowedRole="ROLE_STUDENT">
               <ResultPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/profile"
+          element={
+            <ProtectedRoute allowedRole="ROLE_STUDENT">
+              <ProfilePage />
             </ProtectedRoute>
           }
         />
