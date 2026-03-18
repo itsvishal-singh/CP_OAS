@@ -5,6 +5,7 @@ export default function Navbar() {
 
   const role = localStorage.getItem("role");
   const username = localStorage.getItem("username");
+  const fullName = localStorage.getItem("fullName");
 
   const handleLogout = () => {
     localStorage.clear();
@@ -28,7 +29,7 @@ export default function Navbar() {
         {role === "ROLE_ADMIN"
           ? "Admin Home"
           : role === "ROLE_STUDENT"
-          ? `Welcome ${username}`
+          ? `Welcome ${fullName || username}`
           : "Assessment Home"}
       </Link>
       <div className="flex gap-6 items-center">
@@ -37,6 +38,7 @@ export default function Navbar() {
             Dashboard
           </Link>
         )}
+        {role === "ROLE_STUDENT" && <Link to="/student/profile">Profile</Link>}
 
         {role ? (
           <button
