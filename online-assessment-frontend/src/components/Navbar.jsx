@@ -38,8 +38,28 @@ export default function Navbar() {
             Dashboard
           </Link>
         )}
-        {role === "ROLE_STUDENT" && <Link to="/student/profile">Profile</Link>}
-
+        {role === "ROLE_STUDENT" && (
+          <>
+            <Link
+              to="/student/exams"
+              className="hover:text-yellow-300 transition"
+            >
+              Exams
+            </Link>
+            <Link
+              to="/student/results"
+              className="hover:text-yellow-300 transition"
+            >
+              Results
+            </Link>
+            <Link
+              to="/student/profile"
+              className="hover:text-yellow-300 transition"
+            >
+              Profile
+            </Link>
+          </>
+        )}
         {role ? (
           <button
             onClick={handleLogout}
