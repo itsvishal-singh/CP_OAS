@@ -5,7 +5,7 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 export default function StudentDashboard() {
   const [stats, setStats] = useState(null);
-  const [exams, setExams] = useState([]);
+  // const [exams, setExams] = useState([]);
   const COLORS = ["#6366f1", "#22c55e"];
   const chartData = [
     { name: "Attempted", value: stats?.attempted || 0 },
@@ -19,7 +19,7 @@ export default function StudentDashboard() {
 
   useEffect(() => {
     loadDashboard();
-    loadExams();
+    // loadExams();
     loadProfile();
   }, []);
 
@@ -36,20 +36,22 @@ export default function StudentDashboard() {
     }
   };
 
-  const loadExams = async () => {
-    const res = await api.get("/student/exams");
-    setExams(res.data);
-  };
+  // const loadExams = async () => {
+  //   const res = await api.get("/student/exams");
+  //   setExams(res.data);
+  // };
 
-  const startExam = (examId) => {
-    navigate(`/exams/${examId}`);
-  };
+  // const startExam = (examId) => {
+  //   navigate(`/exams/${examId}`);
+  // };
 
   if (!stats) return <p className="text-white">Loading...</p>;
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl text-green-500 font-bold mb-6">Your Place</h1>
+      <h1 className="text-3xl text-green-500 font-bold m-8 pb-8 text-center ">
+        Your Home
+      </h1>
 
       {/* Stats */}
 
@@ -89,15 +91,33 @@ export default function StudentDashboard() {
           </PieChart>
 
           {/* BUTTON BELOW CHART */}
-          <button
-            onClick={() => navigate("/student/exams")}
-            className="mt-4 bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700"
-          >
-            View Exams
-          </button>
+          <div className="mt-5 flex gap-3">
+            {/* All Exams */}
+            <button
+              onClick={() => navigate("/student/exams")}
+              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+            >
+              All Exams
+            </button>
+
+            {/* Attempted Exams */}
+            <button
+              onClick={() => navigate("/student/attempts")}
+              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+            >
+              Attempted
+            </button>
+
+            {/* Results */}
+            <button
+              onClick={() => navigate("/student/results")}
+              className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
+            >
+              Results
+            </button>
+          </div>
         </div>
       </div>
-
     </div>
   );
 }
