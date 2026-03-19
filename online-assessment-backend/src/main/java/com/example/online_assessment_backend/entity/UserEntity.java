@@ -28,7 +28,8 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    
+    @Column(name  = "full_name")
     private String fullName;
 
     @NotBlank(message = "Username is required")
