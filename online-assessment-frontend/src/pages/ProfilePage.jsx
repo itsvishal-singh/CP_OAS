@@ -10,10 +10,13 @@ export default function ProfilePage() {
   }, []);
 
   const loadProfile = async () => {
-    const res = await api.get("/student/profile");
-    setProfile(res.data);
+    try {
+      const res = await api.get("/student/profile");
+      setProfile(res.data);
+    } catch (err) {
+      console.error("Profile API error:", err);
+    }
   };
-
   const handleChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
