@@ -17,6 +17,7 @@ import ManageStudents from "./pages/ManageUsers";
 import ResultPage from "./pages/ResultPage";
 import ProfilePage from "./pages/ProfilePage";
 import ResultsListPage from "./pages/ResultsListPage";
+import AttemptedPage from "./pages/AttemptedPage";
 
 function App() {
   return (
@@ -114,14 +115,14 @@ function App() {
           }
         />
 
-        {/* <Route
+        <Route
           path="/student/attempts"
           element={
             <ProtectedRoute allowedRole="ROLE_STUDENT">
-              <AttemptedExams />
+              <AttemptedPage />
             </ProtectedRoute>
           }
-        /> */}
+        />
       </Routes>
     </BrowserRouter>
   );
