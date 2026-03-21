@@ -19,4 +19,5 @@ public class ResultResponse {
     private int totalQuestions;
 
     private LocalDateTime submittedAt;
+    private Long attemptId;
 }

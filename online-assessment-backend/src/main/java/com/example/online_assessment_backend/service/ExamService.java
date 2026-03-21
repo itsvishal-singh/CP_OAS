@@ -237,6 +237,7 @@ public class ExamService {
 
                 return results.stream()
                                 .map(r -> ResultResponse.builder()
+                                                .attemptId(r.getAttempt().getId())
                                                 .examId(r.getAttempt().getExam().getId())
                                                 .examTitle(r.getAttempt().getExam().getTitle())
                                                 .score(r.getScore())
@@ -265,6 +266,28 @@ public class ExamService {
                                                 .submittedAt(r.getAttempt().getEndTime())
                                                 .build())
                                 .toList();
+        }
+
+        public ResultResponse getResultByAttemptId(Long attemptId) {
+                ResultEntity result = resultRepository.findByAttemptId(attemptId)
+                                .orElseThrow(() -> new RuntimeException("Result not found"));
+
+                return new ResultResponse(
+                                result.getAttempt().getExam().getId(),
+                                result.getAttempt().getExam().getTitle(),
+                                result.getScore(),
+                                result.getCorrectAnswers(),
+                                result.getTotalQuestions(),
+                                result.getSubmittedAt(),
+                                result.getAttempt().getId());
+        }
+
+        public List<ExamAttemptEntity> getMyAttempts(String username) {
+
+                UserEntity student = userRepository.findByUsername(username)
+                                .orElseThrow(() -> new RuntimeException("User not found"));
+
+                return examAttemptRepository.findByStudent_Id(student.getId());
         }
 
         public String closeExam(Long examId) {

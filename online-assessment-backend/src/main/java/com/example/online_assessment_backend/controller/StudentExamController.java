@@ -14,28 +14,26 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.online_assessment_backend.dto.ExamSessionResponse;
 import com.example.online_assessment_backend.dto.ResultResponse;
 import com.example.online_assessment_backend.dto.SubmitExamRequest;
+import com.example.online_assessment_backend.entity.ExamAttemptEntity;
 import com.example.online_assessment_backend.entity.ExamEntity;
-import com.example.online_assessment_backend.entity.ResultEntity;
 import com.example.online_assessment_backend.service.ExamService;
-import com.example.online_assessment_backend.service.ResultService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/student/exams")
+@RequestMapping("/api/student")
 @RequiredArgsConstructor
 public class StudentExamController {
 
     private final ExamService examService;
-    private final ResultService resultService;
 
     // ✅ Get all exams
-    @GetMapping
+    @GetMapping("/exams")
     public List<ExamEntity> getExamsForStudent() {
         return examService.getAllExams();
     }
 
-    @GetMapping("/{examId}")
+    @GetMapping("/exams/{examId}")
     public ResponseEntity<?> getExam(
             @PathVariable Long examId) {
 
@@ -44,7 +42,7 @@ public class StudentExamController {
     }
 
     // Start Session
-    @GetMapping("/{examId}/start-session")
+    @GetMapping("/exams/{examId}/start-session")
     public ExamSessionResponse startSession(
             @PathVariable Long examId,
             Authentication authentication) {
@@ -55,7 +53,7 @@ public class StudentExamController {
     }
 
     // ✅ Start exam
-    @PostMapping("/{examId}/start")
+    @PostMapping("/exams/{examId}/start")
     public ExamSessionResponse startExam(
             @PathVariable Long examId,
             Authentication authentication) {
@@ -65,7 +63,7 @@ public class StudentExamController {
         return examService.startExamSession(examId, username);
     }
 
-    @PostMapping("/submit")
+    @PostMapping("/exams/submit")
     public String submitExam(
             @RequestBody SubmitExamRequest request) {
 
@@ -74,13 +72,18 @@ public class StudentExamController {
 
     @GetMapping("/results")
     public List<ResultResponse> getMyResults(Authentication auth) {
-
         return examService.getMyResults(auth.getName());
     }
 
     @GetMapping("/results/{attemptId}")
-    public ResponseEntity<ResultEntity> getResult(@PathVariable Long attemptId) {
-        ResultEntity result = resultService.getResultByAttemptId(attemptId);
+    public ResponseEntity<ResultResponse> getResult(@PathVariable Long attemptId) {
+        ResultResponse result = examService.getResultByAttemptId(attemptId);
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/attempts")
+    public List<ExamAttemptEntity> getMyAttempts(Authentication authentication) {
+        String username = authentication.getName();
+        return examService.getMyAttempts(username);
     }
 }

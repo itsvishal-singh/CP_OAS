@@ -24,4 +24,5 @@ public interface ExamAttemptRepository
 
         Optional<ExamAttemptEntity> findTopByStudent_IdOrderByIdDesc(Long studentId);
 
+        List<ExamAttemptEntity> findByStudent_Id(Long studentId);
 }
