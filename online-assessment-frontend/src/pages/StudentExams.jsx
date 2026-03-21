@@ -25,31 +25,42 @@ export default function StudentExams() {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold text-blue-700 mb-6">Available Exams</h1>
-
-      <div className="grid gap-4">
+    <div className="p-10 bg-gray-50 min-h-screen">
+  
+      <h1 className="text-3xl font-bold mb-8 text-indigo-700">
+        🚀 Available Exams
+      </h1>
+  
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {exams.map((exam) => (
           <div
             key={exam.id}
-            className="bg-white shadow-md rounded-lg p-4 flex justify-between items-center"
+            className="bg-white rounded-2xl shadow-md p-6 hover:shadow-xl transition duration-300 flex flex-col justify-between"
           >
             <div>
-              <h2 className="text-lg font-semibold">{exam.title}</h2>
-              <p className="text-green-600">
-                Duration: {`${exam.durationMinutes}`} minutes
+              <h2 className="text-xl font-bold text-gray-800 mb-2">
+                {exam.title}
+              </h2>
+  
+              <p className="text-gray-500 mb-1">
+                ⏱ Duration: <span className="font-semibold">{exam.durationMinutes} min</span>
+              </p>
+  
+              <p className="text-gray-500">
+                🎯 Marks: <span className="font-semibold">{exam.totalMarks}</span>
               </p>
             </div>
-
+  
             <button
               onClick={() => startExam(exam.id)}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              className="mt-5 bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-2 rounded-lg hover:scale-105 transition"
             >
-              Start Exam
+              Start Exam →
             </button>
           </div>
         ))}
       </div>
+  
     </div>
   );
 }
