@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div className="max-h bg-gradient-to-b from-indigo-700 via-blue-500 to-purple-700 text-white flex flex-col items-center justify-center px-4 sm:px-6 lg:px-6 p-5">
+    <div className="h-[calc(100vh-99px)] bg-gradient-to-b from-indigo-700 via-blue-500 to-purple-700 text-white flex flex-col items-center justify-center px-4 sm:px-6 lg:px-6 p-5">
       {/* Hero Section */}
       <div className="text-center max-w-4xl w-full px-4 py-2 mb-16 sm:mb-20">
         <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-6xl font-extrabold mb-6 leading-tight">
