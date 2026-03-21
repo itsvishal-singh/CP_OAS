@@ -14,7 +14,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-gradient-to-t from-indigo-700 via-blue-700 to-purple-700 text-white shadow-2xl px-12 py-6 flex justify-between items-center ">
+    <nav className="bg-gradient-to-t  from-indigo-700 via-blue-700 to-purple-700 text-white shadow-2xl px-12 py-6 flex justify-between items-center ">
       {/* Dynamic Home Title */}
       <Link
         to={
