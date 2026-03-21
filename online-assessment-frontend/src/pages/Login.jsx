@@ -33,7 +33,7 @@ export default function Login() {
   };
 
   return (
-    <div className="h-[calc(100vh-83px)] flex items-center justify-center bg-gradient-to-br from-indigo-500 via-blue-300 to-purple-600">
+    <div className="h-[calc(100vh-99px)] flex items-center justify-center bg-gradient-to-b from-indigo-700 via-blue-500 to-purple-700">
       <div className="bg-white shadow-2xl rounded-3xl p-10 w-[450px]">
         <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">
           Your Assessment

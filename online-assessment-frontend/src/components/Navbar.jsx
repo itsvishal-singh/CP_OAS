@@ -14,7 +14,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-gradient-to-bl from-blue-900 to-purple-900 text-white shadow-md px-10 py-6 flex justify-between items-center ">
+    <nav className="bg-gradient-to-t from-indigo-700 via-blue-700 to-purple-700 text-white shadow-2xl px-12 py-6 flex justify-between items-center ">
       {/* Dynamic Home Title */}
       <Link
         to={
@@ -69,10 +69,10 @@ export default function Navbar() {
           </button>
         ) : (
           <>
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="px-6 sm:px-6 py-2 bg-white text-blue-600 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base ">Login</Link>
             <Link
               to="/register"
-              className="bg-white text-indigo-700 px-4 py-2 rounded-lg"
+              className="px-6 sm:px-6 py-2 bg-white text-green-600 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base "
             >
               Register
             </Link>

@@ -48,7 +48,7 @@ export default function StudentDashboard() {
   if (!stats) return <p className="text-white">Loading...</p>;
 
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
+    <div className="p-8 bg-gradient-to-b from-indigo-700 via-blue-500 to-purple-700 h-[calc(100vh-99px)]">
       <h1 className="text-3xl text-green-500 font-bold m-8 pb-8 text-center ">
         Your Home
       </h1>
