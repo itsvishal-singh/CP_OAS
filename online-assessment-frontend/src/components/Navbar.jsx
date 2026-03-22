@@ -34,7 +34,7 @@ export default function Navbar() {
       </Link>
       <div className="flex gap-6 items-center">
         {role && (
-          <Link to={role === "ROLE_ADMIN" ? "/admin" : "/student"}>
+          <Link to={role === "ROLE_ADMIN" ? "/admin" : "/student"} className="px-6 sm:px-6 py-2 bg-white text-blue-600 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base ">
             Dashboard
           </Link>
         )}
@@ -42,19 +42,19 @@ export default function Navbar() {
           <>
             <Link
               to="/student/exams"
-              className="hover:text-yellow-300 transition"
+              className="px-6 sm:px-6 py-2 bg-white text-blue-600 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base "
             >
               Exams
             </Link>
             <Link
               to="/student/results"
-              className="hover:text-yellow-300 transition"
+              className="px-6 sm:px-6 py-2 bg-white text-blue-600 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base "
             >
               Results
             </Link>
             <Link
               to="/student/profile"
-              className="hover:text-yellow-300 transition"
+              className="px-6 sm:px-6 py-2 bg-white text-blue-600 rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base "
             >
               Profile
             </Link>
@@ -63,7 +63,7 @@ export default function Navbar() {
         {role ? (
           <button
             onClick={handleLogout}
-            className="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600 transition"
+            className="px-6 sm:px-6 py-2 bg-red-500 text-white rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base "
           >
             Logout
           </button>
