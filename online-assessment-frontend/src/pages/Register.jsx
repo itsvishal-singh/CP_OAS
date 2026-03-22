@@ -38,7 +38,7 @@ export default function Register() {
   };
 
   return (
-    <div className="h-[calc(100vh-99px)] flex items-center justify-center bg-[conic-gradient(at_center,_var(--tw-gradient-stops))] from-purple-700 via-blue-500 to-indigo-700">
+    <div className="h-[calc(100vh-99px)] flex items-center justify-center bg-[conic-gradient(from_45deg_at_top,_var(--tw-gradient-stops))] from-purple-600 via-blue-700 to-indigo-700">
       <div className="bg-white shadow-2xl rounded-3xl p-8 w-[500px]">
         <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">
           Create Student Account
