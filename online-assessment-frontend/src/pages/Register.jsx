@@ -38,7 +38,7 @@ export default function Register() {
   };
 
   return (
-    <div className="h-[calc(100vh-99px)] flex items-center justify-center bg-gradient-to-b from-indigo-700 via-blue-500 to-purple-700">
+    <div className="h-[calc(100vh-99px)] flex items-center justify-center bg-[conic-gradient(at_center,_var(--tw-gradient-stops))] from-purple-700 via-blue-500 to-indigo-700">
       <div className="bg-white shadow-2xl rounded-3xl p-8 w-[500px]">
         <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">
           Create Student Account
@@ -124,7 +124,7 @@ export default function Register() {
             disabled={!passwordsMatch || !isMobileValid}
             className={`w-full py-3 rounded-lg text-white transition duration-300 shadow-md ${
               passwordsMatch && isMobileValid
-                ? "bg-indigo-600 hover:bg-indigo-800"
+                ? "bg-indigo-600 hover:bg-green-600"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
           >
