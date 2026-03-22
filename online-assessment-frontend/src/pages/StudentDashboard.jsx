@@ -48,8 +48,8 @@ export default function StudentDashboard() {
   if (!stats) return <p className="text-white">Loading...</p>;
 
   return (
-    <div className="p-8 bg-gradient-to-b from-indigo-700 via-blue-500 to-purple-700 h-[calc(100vh-99px)]">
-      <h1 className="text-3xl text-green-500 font-bold m-8 pb-8 text-center ">
+    <div className="p-8 bg-gradient-to-r from-indigo-700 via-blue-500 to-purple-700 h-[calc(100vh-99px)]">
+      <h1 className="text-5xl text-white font-semibold m-8 pb-8 text-center ">
         Your Home
       </h1>
 
@@ -95,7 +95,7 @@ export default function StudentDashboard() {
             {/* All Exams */}
             <button
               onClick={() => navigate("/student/exams")}
-              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+              className="sm:px-5 p-2 bg-blue-500 text-white rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base "
             >
               All Exams
             </button>
@@ -103,7 +103,7 @@ export default function StudentDashboard() {
             {/* Attempted Exams */}
             <button
               onClick={() => navigate("/student/attempts")}
-              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+              className="sm:px-5 p-2 bg-green-500 text-white rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base "
             >
               Attempted
             </button>
@@ -111,7 +111,7 @@ export default function StudentDashboard() {
             {/* Results */}
             <button
               onClick={() => navigate("/student/results")}
-              className="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
+              className=" sm:px-5 p-2 bg-purple-500 text-white rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base "
             >
               Results
             </button>
