@@ -55,20 +55,20 @@ export default function StudentDashboard() {
 
       {/* Stats */}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-14 ">
         {/* LEFT SIDE → CARDS */}
-        <div className="flex flex-col gap-5 font-bold mx-10">
-          <div className="bg-white text-blue-700 text-center py-8 rounded-xl shadow">
+        <div className="flex flex-col gap-5 font-bold mx-10 ">
+          <div className="bg-white text-blue-700 text-center py-8 rounded-xl shadow hover:scale-[1.02] transition-transform duration-500">
             <h1 className="text-xl">Total Exams</h1>
             <p className="text-3xl mt-1">{stats.totalExams}</p>
           </div>
 
-          <div className="bg-white text-green-600 text-center py-8 rounded-xl shadow">
+          <div className="bg-white text-green-600 text-center py-8 rounded-xl shadow hover:scale-[1.02] transition-transform duration-500">
             <h1 className="text-xl">Attempted</h1>
             <p className="text-3xl mt-1">{stats.attempted}</p>
           </div>
 
-          <div className="bg-white text-purple-600 text-center py-8 rounded-xl shadow">
+          <div className="bg-white text-purple-600 text-center py-8 rounded-xl shadow hover:scale-[1.02] transition-transform duration-500">
             <h1 className="text-xl">Average Score</h1>
             <p className="text-3xl mt-1">
               {stats.averageScore ? stats.averageScore.toFixed(1) : "0.0"}%
@@ -77,11 +77,11 @@ export default function StudentDashboard() {
         </div>
 
         {/* RIGHT SIDE → PIE CHART */}
-        <div className="bg-white py-8 mx-8 rounded-xl shadow flex flex-col items-center justify-center">
+        <div className="bg-white py-8 mx-8 rounded-xl shadow flex flex-col items-center justify-center hover:scale-[1.02] transition-transform duration-500">
           <h2 className="text-3xl font-bold text-blue-700 mb-4">Exam Progress</h2>
 
-          <PieChart width={300} height={250}>
-            <Pie data={chartData} dataKey="value" outerRadius={80} label>
+          <PieChart width={300} height={250} className="hover:scale-[1.05] transition-transform duration-500">
+            <Pie data={chartData} dataKey="value" outerRadius={90} label>
               {chartData.map((entry, index) => (
                 <Cell key={index} fill={COLORS[index]} />
               ))}
