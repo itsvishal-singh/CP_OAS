@@ -6,7 +6,7 @@ import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 export default function StudentDashboard() {
   const [stats, setStats] = useState(null);
   // const [exams, setExams] = useState([]);
-  const COLORS = ["#6366f1", "#22c55e"];
+  const COLORS = ["#22c55e", "	#6666ff"];
   const chartData = [
     { name: "Attempted", value: stats?.attempted || 0 },
     {
@@ -48,37 +48,37 @@ export default function StudentDashboard() {
   if (!stats) return <p className="text-white">Loading...</p>;
 
   return (
-    <div className="p-8 bg-gradient-to-b from-indigo-700 via-blue-500 to-purple-700 h-[calc(100vh-99px)]">
-      <h1 className="text-5xl text-white font-semibold m-8 pb-8 text-center ">
+    <div className="px-14 py-4 bg-gradient-to-b from-indigo-700 via-blue-500 to-purple-700 h-[calc(100vh-99px)]">
+      <h1 className="text-5xl text-white font-semibold m-1 pb-14 text-center ">
         Your Home
       </h1>
 
       {/* Stats */}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-14">
         {/* LEFT SIDE → CARDS */}
-        <div className="flex flex-col gap-5">
-          <div className="bg-gradient-to-r from-indigo-500 to-indigo-700 text-white p-6 rounded-xl shadow">
-            <h3>Total Exams</h3>
-            <p className="text-3xl">{stats.totalExams}</p>
+        <div className="flex flex-col gap-5 font-bold mx-10">
+          <div className="bg-white text-blue-700 text-center py-8 rounded-xl shadow">
+            <h1 className="text-xl">Total Exams</h1>
+            <p className="text-3xl mt-1">{stats.totalExams}</p>
           </div>
 
-          <div className="bg-gradient-to-r from-green-500 to-green-700 text-white p-6 rounded-xl shadow">
-            <h3>Attempted</h3>
-            <p className="text-3xl">{stats.attempted}</p>
+          <div className="bg-white text-green-600 text-center py-8 rounded-xl shadow">
+            <h1 className="text-xl">Attempted</h1>
+            <p className="text-3xl mt-1">{stats.attempted}</p>
           </div>
 
-          <div className="bg-gradient-to-r from-purple-500 to-purple-700 text-white p-6 rounded-xl shadow">
-            <h3>Average Score</h3>
-            <p className="text-3xl">
+          <div className="bg-white text-purple-600 text-center py-8 rounded-xl shadow">
+            <h1 className="text-xl">Average Score</h1>
+            <p className="text-3xl mt-1">
               {stats.averageScore ? stats.averageScore.toFixed(1) : "0.0"}%
             </p>
           </div>
         </div>
 
         {/* RIGHT SIDE → PIE CHART */}
-        <div className="bg-white p-6 rounded-xl shadow flex flex-col items-center justify-center">
-          <h2 className="text-lg font-bold mb-4">Exam Progress</h2>
+        <div className="bg-white py-8 mx-8 rounded-xl shadow flex flex-col items-center justify-center">
+          <h2 className="text-3xl font-bold text-blue-700 mb-4">Exam Progress</h2>
 
           <PieChart width={300} height={250}>
             <Pie data={chartData} dataKey="value" outerRadius={80} label>
