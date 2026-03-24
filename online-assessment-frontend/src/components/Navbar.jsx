@@ -24,7 +24,7 @@ export default function Navbar() {
             ? "/student"
             : "/"
         }
-        className="text-xl font-bold text-white hover:underline"
+        className="text-3xl font-bold text-white hover:underline"
       >
         {role === "ROLE_ADMIN"
           ? "Admin Home"
