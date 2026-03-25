@@ -72,7 +72,7 @@ export default function ResultPage() {
           </b>
         </div>
 
-        <div className="flex justify-between text-sm text-gray-400 mt-2">
+        <div className="flex justify-between text-sm text-gray-500 mt-2">
           <span>Submitted At</span>
           <span>{new Date(result.submittedAt).toLocaleString()}</span>
         </div>
