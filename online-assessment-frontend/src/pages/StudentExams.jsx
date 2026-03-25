@@ -20,17 +20,17 @@ export default function StudentExams() {
   };
 
   const startExam = async (examId) => {
-    // await api.post(`/student/exams/${examId}/start`);
+   
     navigate(`/student/exams/${examId}`);
   };
 
   return (
-    <div className="p-12 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-600 via-blue-600 to-indigo-700 min-h-screen">
+    <div className="p-12 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-700  to-indigo-700 min-h-screen">
       <h1 className="text-4xl font-bold mb-8 text-white text-center">
         🚀 Available Exams
       </h1>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {exams.map((exam) => (
           <div
             key={exam.id}
