@@ -33,9 +33,9 @@ export default function Login() {
   };
 
   return (
-    <div className="h-[calc(100vh-99px)] flex items-center justify-center bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-900 via-indigo-500 to-blue-700">
+    <div className="h-[calc(100vh-99px)] flex items-center justify-center bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-500 via-blue-500 to-indigo-700">
       <div className="bg-white shadow-2xl rounded-3xl p-10 w-[450px]">
-        <h2 className="text-3xl font-bold text-center text-indigo-700 mb-2">
+        <h2 className="text-3xl font-bold text-center text-indigo-600 mb-2">
           Your Assessment
         </h2>
 

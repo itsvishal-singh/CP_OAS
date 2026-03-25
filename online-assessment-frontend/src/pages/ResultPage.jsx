@@ -28,26 +28,25 @@ export default function ResultPage() {
   const isPass = percentage >= 75;
 
   return (
-    <div className="p-10 bg-gray-50 min-h-screen flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-8 text-indigo-700">
+    <div className="p-12 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-700  to-indigo-700 h-[calc(100vh-99px)] flex flex-col items-center">
+      <h1 className="text-4xl font-bold mb-8 text-white text-center">
         🎯 Exam Result
       </h1>
 
-      {/* SCORE CARD */}
-      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-8 rounded-2xl shadow-lg w-96 text-center mb-6">
-        <h2 className="text-lg">Your Score</h2>
-        <p className="text-5xl font-bold mt-2">{result.score}</p>
-        {/* PERCENTAGE */}
-        <p className="mt-2 text-lg">{percentage.toFixed(1)}%</p>
+      <div className="bg-gradient-to-tr from-indigo-400 to-purple-400 text-white p-8 rounded-2xl shadow-lg w-96 text-center mb-6 hover:scale-[1.02] transition-transform duration-500">
+        <h2 className="text-xl font-bold">Your Score</h2>
+        <p className="text-6xl font-bold mt-2">{result.score}</p>
+      
+        <p className="mt-2 text-xl font-bold">{percentage.toFixed(1)}%</p>
 
-        {/* PASS / FAIL BADGE */}
+        
         <div className="mt-3">
           {isPass ? (
-            <span className="bg-green-500 px-4 py-1 rounded-full text-sm font-semibold">
+            <span className="bg-green-200 text-green-600 px-5 py-2 rounded-2xl text-lg font-bold">
               ✅ PASS
             </span>
           ) : (
-            <span className="bg-red-500 px-4 py-1 rounded-full text-sm font-semibold">
+            <span className="bg-red-200 text-red-600 px-5 py-2 rounded-2xl text-lg font-bold">
               ❌ FAIL
             </span>
           )}
@@ -55,25 +54,25 @@ export default function ResultPage() {
       </div>
 
       {/* DETAILS */}
-      <div className="bg-white p-6 rounded-xl shadow w-96 space-y-3">
-        <div className="flex justify-between">
-          <span>Total Questions</span>
-          <b>{result.totalQuestions}</b>
+      <div className="bg-white p-6 rounded-2xl shadow w-96 space-y-4 hover:scale-[1.02] transition-transform duration-500 ">
+        <div className="flex justify-between ">
+          <span className="text-blue-600 font-semibold">Total Questions</span>
+          <b className="text-blue-700 font-bold text-lg">{result.totalQuestions}</b>
         </div>
 
         <div className="flex justify-between">
-          <span>Correct Answers</span>
-          <b className="text-green-600">{result.correctAnswers}</b>
+          <span className="text-green-600 font-semibold">Correct Answers</span>
+          <b className="text-green-700 font-bold text-lg">{result.correctAnswers}</b>
         </div>
 
         <div className="flex justify-between">
-          <span>Wrong Answers</span>
-          <b className="text-red-500">
+          <span className="text-red-600 font-semibold">Wrong Answers</span>
+          <b className="text-red-700 font-bold text-lg">
             {result.totalQuestions - result.correctAnswers}
           </b>
         </div>
 
-        <div className="flex justify-between text-sm text-gray-500 mt-2">
+        <div className="flex justify-between text-sm text-gray-400 mt-2">
           <span>Submitted At</span>
           <span>{new Date(result.submittedAt).toLocaleString()}</span>
         </div>
