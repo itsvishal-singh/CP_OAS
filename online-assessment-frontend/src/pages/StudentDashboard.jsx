@@ -19,7 +19,6 @@ export default function StudentDashboard() {
 
   useEffect(() => {
     loadDashboard();
-    // loadExams();
     loadProfile();
   }, []);
 
@@ -36,15 +35,6 @@ export default function StudentDashboard() {
     }
   };
 
-  // const loadExams = async () => {
-  //   const res = await api.get("/student/exams");
-  //   setExams(res.data);
-  // };
-
-  // const startExam = (examId) => {
-  //   navigate(`/exams/${examId}`);
-  // };
-
   if (!stats) return <p className="text-white">Loading...</p>;
 
   return (
@@ -53,10 +43,8 @@ export default function StudentDashboard() {
         Your Home
       </h1>
 
-      {/* Stats */}
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-14 ">
-        {/* LEFT SIDE → CARDS */}
+
         <div className="flex flex-col gap-5 font-bold mx-10 ">
           <div className="bg-white text-blue-700 text-center py-8 rounded-xl shadow hover:scale-[1.02] transition-transform duration-500">
             <h1 className="text-xl">Total Exams</h1>
@@ -76,11 +64,10 @@ export default function StudentDashboard() {
           </div>
         </div>
 
-        {/* RIGHT SIDE → PIE CHART */}
-        <div className="bg-white py-8 mx-8 rounded-xl shadow flex flex-col items-center justify-center hover:scale-[1.02] transition-transform duration-500">
+        <div className="bg-white py-6 mx-8 rounded-xl shadow flex flex-col items-center justify-center hover:scale-[1.02] transition-transform duration-500">
           <h2 className="text-3xl font-bold text-blue-700 mb-4">Exam Progress</h2>
 
-          <PieChart width={300} height={250} className="hover:scale-[1.05] transition-transform duration-500">
+          <PieChart width={350} height={300} className="hover:scale-[1.05] transition-transform duration-500 m-2">
             <Pie data={chartData} dataKey="value" outerRadius={90} label>
               {chartData.map((entry, index) => (
                 <Cell key={index} fill={COLORS[index]} />
@@ -90,9 +77,9 @@ export default function StudentDashboard() {
             <Legend />
           </PieChart>
 
-          {/* BUTTON BELOW CHART */}
+          
           <div className="mt-5 flex gap-3">
-            {/* All Exams */}
+           
             <button
               onClick={() => navigate("/student/exams")}
               className="sm:px-5 p-2 bg-blue-500 text-white rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base "
@@ -100,7 +87,6 @@ export default function StudentDashboard() {
               All Exams
             </button>
 
-            {/* Attempted Exams */}
             <button
               onClick={() => navigate("/student/attempts")}
               className="sm:px-5 p-2 bg-green-500 text-white rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base "
@@ -108,7 +94,6 @@ export default function StudentDashboard() {
               Attempted
             </button>
 
-            {/* Results */}
             <button
               onClick={() => navigate("/student/results")}
               className=" sm:px-5 p-2 bg-purple-500 text-white rounded-xl font-semibold hover:scale-105 transition-all duration-300 shadow-lg text-sm sm:text-base "
