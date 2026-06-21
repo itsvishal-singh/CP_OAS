@@ -59,5 +59,4 @@ public interface ResultRepository extends JpaRepository<ResultEntity, Long> {
       """)
   Integer getExamMax(@Param("examId") Long examId);
  
-
 }

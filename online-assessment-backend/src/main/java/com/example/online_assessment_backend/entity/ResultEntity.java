@@ -1,6 +1,4 @@
 package com.example.online_assessment_backend.entity;
-
-
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;

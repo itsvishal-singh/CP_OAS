@@ -18,6 +18,7 @@ import ResultPage from "./pages/ResultPage";
 import ProfilePage from "./pages/ProfilePage";
 import ResultsListPage from "./pages/ResultsListPage";
 import AttemptedPage from "./pages/AttemptedPage";
+import AdminResultReport from "./pages/AdminResultReport";
 
 function App() {
   return (
@@ -123,6 +124,13 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route 
+        path="/admin/result-reports" 
+        element={
+        <ProtectedRoute allowedRole="ROLE_ADMIN">
+          <AdminResultReport />
+        </ProtectedRoute>
+        } />
       </Routes>
     </BrowserRouter>
   );

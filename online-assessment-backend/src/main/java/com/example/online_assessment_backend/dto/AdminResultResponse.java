@@ -11,12 +11,13 @@ public class AdminResultResponse {
 
     private String studentName;
     private String studentEmail;
-
     private Long examId;
     private String examTitle;
 
     private int score;
     private int totalQuestions;
+    private double percentage;
+    private String status;
 
     private LocalDateTime submittedAt;
 }

@@ -421,4 +421,64 @@ public class ExamService {
                                 .build();
         }
 
+        public List<AdminResultResponse> getStudentResults(Long examId) {
+
+                List<ResultEntity> results = resultRepository.findByAttempt_Exam_Id(examId);
+
+                return results.stream()
+
+                                .map(result -> {
+
+                                        ExamAttemptEntity attempt = result.getAttempt();
+
+                                        double percentage = 0;
+
+                                        if (result.getTotalQuestions() != 0) {
+
+                                                percentage = ((double) result.getScore()
+                                                                / result.getTotalQuestions())
+                                                                * 100;
+                                        }
+
+                                        String status = percentage >= 75
+                                                        ? "PASS"
+                                                        : "FAIL";
+
+                                        return AdminResultResponse.builder()
+
+                                                        .studentName(
+                                                                        attempt.getStudent().getFullName())
+
+                                                        .studentEmail(
+                                                                        attempt.getStudent().getUsername())
+
+                                                        .examId(
+                                                                        attempt.getExam().getId())
+
+                                                        .examTitle(
+                                                                        attempt.getExam().getTitle())
+
+                                                        .score(
+                                                                        result.getScore())
+
+                                                        .totalQuestions(
+                                                                        result.getTotalQuestions())
+
+                                                        .percentage(
+                                                                        Math.round(percentage * 100.0)
+                                                                                        / 100.0)
+
+                                                        .status(
+                                                                        status)
+
+                                                        .submittedAt(
+                                                                        result.getSubmittedAt())
+
+                                                        .build();
+
+                                })
+
+                                .toList();
+        }
+
 }

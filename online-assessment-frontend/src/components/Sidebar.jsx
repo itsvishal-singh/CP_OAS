@@ -46,7 +46,7 @@ export default function Sidebar() {
           to="/admin/results"
           className="px-4 py-2 rounded hover:bg-indigo-700 transition"
         >
-          Results
+          Result Reports
         </Link>
 
         <button
