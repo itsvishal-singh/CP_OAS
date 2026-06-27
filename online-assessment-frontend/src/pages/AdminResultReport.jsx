@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import api from "../api/axios";
+import AdminLayout from "../layouts/AdminLayout";
 
 import {
   Search,
@@ -116,28 +117,23 @@ export default function AdminResultReport() {
     : [];
 
   return (
-    <div className="min-h-screen bg-slate-300 px-10 py-6">
-      <div className="rounded-3xl bg-gradient-to-r from-indigo-700 via-blue-700 to-purple-700 px-10 py-8 shadow-xl text-white">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
-          <div>
+    <AdminLayout>
+    <div>
+      <div className="text-white font-semibold">
+        <div className="grid grid-cols-1 lg:grid-cols-3 items-center">
             <h1 className="text-4xl font-bold flex items-center gap-3">
-              <GraduationCap size={38} />
+              <GraduationCap size={44} />
               Result Reports
             </h1>
-
-            <p className="mt-3 text-indigo-100 text-lg">
-              Monitor exam performance and student analytics.
-            </p>
-          </div>
-          <div className="bg-gradient-to-r from-indigo-500 via-blue-700 to-purple-500 rounded-3xl shadow-lg mt-8 p-6 text-white ">
-            <label className="block text-lg font-semibold mb-3">
+          <div>
+            <label className="block text-lg mb-3">
               Select Exam
             </label>
 
-            <div className="relative max-w-sm text-blue-700 font-semibold">
+            <div className="relative text-blue-700">
               <button
                 onClick={() => setShowDropdown(!showDropdown)}
-                className="w-full bg-white border-2 border-indigo-200 rounded-xl px-5 py-4 flex justify-between items-center hover:border-indigo-700 transition"
+                className="w-full bg-white rounded-xl px-5 py-4 flex justify-between items-center"
               >
                 <span>
                   {selectedExam
@@ -155,7 +151,7 @@ export default function AdminResultReport() {
               </button>
 
               {showDropdown && (
-                <div className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-xl border overflow-hidden">
+                <div className="absolute z-50 w-full mt-2 bg-white rounded-xl shadow-xl border overflow-hidden ">
                   {exams.map((exam) => (
                     <button
                       key={exam.id}
@@ -166,9 +162,9 @@ export default function AdminResultReport() {
 
                         loadReport(exam.id);
                       }}
-                      className={`w-full text-left px-5 py-4 transition hover:bg-indigo-600 hover:text-white ${
+                      className={`w-full text-center px-5 py-4 transition hover:bg-indigo-600 hover:text-white border ${
                         selectedExam == exam.id
-                          ? "bg-indigo-600 text-white"
+                          ? "bg-indigo-500 text-white"
                           : ""
                       }`}
                     >
@@ -179,12 +175,12 @@ export default function AdminResultReport() {
               )}
             </div>
           </div>
-          <div className="flex justify-end">
+          <div className="flex items-center pt-8 px-6">
             <button
               onClick={() => selectedExam && loadReport(selectedExam)}
-              className="flex items-center gap-2 bg-white text-indigo-700 px-6 py-4 rounded-xl font-semibold hover:bg-indigo-50 transition shadow-md"
+              className="flex items-center gap-2 text-white font-semibold hover:scale-105 transition "
             >
-              <RefreshCw size={18} />
+              <RefreshCw size={24} />
               Refresh
             </button>
           </div>
@@ -203,7 +199,7 @@ export default function AdminResultReport() {
 
       {!loading && report && (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 mt-6">
             {cards.map((card, index) => (
               <div
                 key={index}
@@ -344,7 +340,7 @@ export default function AdminResultReport() {
       {!loading && !report && (
         <div className="bg-white rounded-3xl shadow-lg mt-8 p-20">
           <div className="flex flex-col items-center">
-            <GraduationCap size={90} className="text-indigo-300" />
+            <GraduationCap size={90} className="text-indigo-400" />
 
             <h2 className="text-3xl font-bold mt-6 text-gray-700">
               Select an Exam
@@ -358,5 +354,6 @@ export default function AdminResultReport() {
         </div>
       )}
     </div>
-  );
+  </AdminLayout>
+);
 }
